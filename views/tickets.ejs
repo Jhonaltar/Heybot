@@ -1,0 +1,240 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Tickets</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3> <%= sol_si.length %>  </h3>
+    
+                    <p>Tickets Solucionados</p>
+                  </div>
+                  <div class="icon">
+                    <i class="far fa-check-circle"></i>
+                  </div>
+                </div>
+              </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3> <%= sol_no.length %>  </h3>
+    
+                    <p>Tickets no solucionados</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-backspace"></i>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div><!-- /.container-fluid -->
+      <% if(locals.mensajes) { %>
+        <% const categoria=Object.keys(locals.mensajes) %>
+            <% if (categoria.length) { %>
+                <% locals.mensajes[categoria].forEach(alerta=>{ %>
+
+                    <div class="alert alert-<%- categoria %> alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><strong>Aviso!</strong></h5>
+
+                        <p>
+                            <%= alerta %>
+                        </p>
+                    </div>
+                    <% }) %>
+                        <% } %>
+                            <% } %>
+    </section>
+    <!-- /.content -->
+
+    <div class="row mb-2">
+      
+  </div>
+    
+
+    <section class="content">
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus-circle"></i> Agregar un nuevo contrato</button>
+    </div>
+    <br>
+      <div class="container-fluid">
+          <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h5 class="mb-0 text-center">
+                      <strong>Tabla de Tickets </strong>
+                  </h5>
+              </div> <!-- /.card-body -->
+              <% if (tickets.length> 0) {%>
+              <div class="row table-responsive">
+                  <div class="col-12 mx-auto ">
+                      <table class="table" style="text-align: center;">
+                          
+                          <thead>
+                              <tr>
+                                  <th>Nº</th>
+                                  <th>Contrato</th>
+                                  <th>Descripcion</th>
+                                  <th>Estado</th>
+                                  <th>Fecha de Creacion</th>
+                                  <th>Fecha de Atencion</th>
+                                  <th>Opciones</th>
+                              </tr>
+                          </thead>
+                          <% tickets.forEach(ticket=> {%>
+                          <tbody>
+                              
+                              <tr >
+                                  <th scope="row">
+                                      <%= ticket.ticket_id %>
+                                  </th>
+                                  <td>
+                                    <%= ticket.contrato.contrato_id %>
+                                </td>
+                                <td>
+                                    <%= ticket.descripcion %>
+                                </td>
+                                <td>
+                                    <% if (ticket.estado == true) { %>
+                                    <span class="badge rounded-pill bg-success">Solucionado</span>
+                                    <% } else {%>
+                                    <span class="badge rounded-pill bg-danger">No se ha solucionado</span>
+                                    <%} %>
+                                </td>
+                                <td>
+                                    <% moment.locale('es'); %>
+                                    <% const fechacreacion = ticket.fechacreacion %>
+                                    <%= moment(fechacreacion).format('DD-MM-YYYY') %>
+                                </td>
+                                <td><% moment.locale('es'); %>
+                                    <% const fechaatencion = ticket.fechaatencion %>
+                                    <%= moment(fechaatencion).format('DD-MM-YYYY') %>
+                                </td>
+                                <td>
+                                    <a href="" type="button" class="btn btn-primary btn-sm" class="btn btn-default" data-toggle="modal" data-target="#modal-default1<%= ticket.ticket_id %>"><i
+                                            class="fas fa-user-edit"></i> Editar</a>
+                                    <!-- <a href="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default2<%= ticket.ticket_id %>"><i
+                                            class="fas fa-trash"></i> Eliminar</a> -->
+                                </td>
+                              </tr>
+                          <% }); %>
+                          </tbody>
+                      </table>
+                      <!-- /.card -->
+                      <%} else {%>
+                          <div class="card-body table-responsive p-0">
+                              <table class="table table-hover text-nowrap">
+                                  <thead>
+                                      <tr>
+                                        <th>Nº</th>
+                                        <th>Contrato</th>
+                                        <th>Descripcion</th>
+                                        <th>Estado</th>
+                                        <th>Fecha de Creacion</th>
+                                        <th>Fecha de Atencion</th>
+                                        <th>Opciones</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                     
+                                  </tbody>
+                              </table>
+                              <div class="alert alert-info alert-dismissible">
+                                  <button type="button" class="close" data-dismiss="alert"
+                                      aria-hidden="true">×</button>
+                                  <h5>Alert!</h5>
+                                  No hay datos ingresados.
+                              </div>
+                          </div>
+                  </div>
+                  <!-- /.row -->
+              </div>
+              <%} %>
+          </div>
+      </div><!-- /.container-fluid -->
+
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Default Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/ticket" method="POST"> 
+                    <div class="row mb-4">
+                        <div class="col">
+                                <div class="form-group">
+                                    <label>Contrato:</label>
+                                    <select class="form-control select2bs4" style="width: 100%;" name="contrato_id">
+                                      <option value="" selected disabled>-- Elige el cliente --</option>
+                                          <% contratos.forEach(contrato =>{%>
+                                            <option value="<%= contrato.contrato_id %> "><%= contrato.contrato_id %></option>
+                                            <%}); %> 
+                                    </select>
+                                  </div>
+                        </div>
+                    </div>
+                     <!-- Text input -->
+                     <div class="form-outline mb-4">
+                        <input type="text" name="descripcion" class="form-control" />
+                        <label class="form-label" for="form6Example3"></label>
+                    </div>
+                    
+                    <!-- <div class="form-group">
+                      <label>:</label>
+                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" name="fecha" data-target="#reservationdate">
+                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                <option selected>Elige el estado</option>
+                                <option value="1">Solucionado</option>
+                                <option value="0">No se ha solucionado</option>
+                              </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <input type="submit" class="btn btn-primary" value="Crear Contrato" >
+                    </div>
+
+                </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+  </section>
+
+  </div>

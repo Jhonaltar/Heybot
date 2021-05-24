@@ -1,0 +1,450 @@
+<div class="content-wrapper" style="min-height: 1256.5px;">
+  <section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Listado de Equipos</h1>
+                <br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus-circle"></i> Agregar un nuevo Equipo</button>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+    <% if(locals.mensajes) { %>
+        <% const categoria=Object.keys(locals.mensajes) %>
+            <% if (categoria.length) { %>
+                <% locals.mensajes[categoria].forEach(alerta=>{ %>
+
+                    <div class="alert alert-<%- categoria %> alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><strong>Aviso!</strong></h5>
+
+                        <p>
+                            <%= alerta %>
+                        </p>
+                    </div>
+                    <% }) %>
+                        <% } %>
+                            <% } %>
+   
+</section>
+    <section class="content">
+        
+      <div class="container-fluid">
+        <h1 style="text-align: center;">Buscardor</h1>
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Buscar por clientes</label>
+                    <select class="form-control select2bs4" style="width: 100%;" name="cliente_id" id="select1" onChange="imprimirValor1()">
+                    <option value="" selected disabled>-- Elige el cliente --</option>
+                    <% usuarios.forEach(usuario =>{%>
+                        <option value="<%= usuario.cliente_id %> "><%= usuario.nombre %></option>
+                        <%}); %> 
+                    
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- <ul id="resultado1">
+            
+        </ul> -->
+          <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h5 class="mb-0 text-center">
+                      <strong>Tabla de Equipos </strong>
+                  </h5>
+              </div> <!-- /.card-body -->
+              <% if (equipos.length> 0) {%>
+              <div class="row table-responsive">
+                  <div class="col-12 mx-auto ">
+                      
+                      
+                      <table class="table" style="text-align: center;">
+                          
+                          <thead >
+                              <tr>
+                                  <th>Nº</th>
+                                  <th>Usuario</th>
+                                  <th>Contrato</th>
+                                  <th>Potencia</th>
+                                  <th>Señas</th>
+                                  <th>Fibra</th>
+                                  <th>Antena</th>
+                                  <th>Dispositivos</th>
+                                  <th>Contraseña</th>
+                              </tr>
+                          </thead>
+                          
+                          <tbody id="resultado1">
+                            
+                          </tbody>
+                      </table>
+                      <!-- /.card -->
+                      <%} else {%>
+                          <div class="card-body table-responsive p-0">
+                              <table class="table table-hover text-nowrap">
+                                  <thead>
+                                    <tr>
+                                      <th>Nº</th>
+                                      <th>Usuario</th>
+                                      <th>Contrato</th>
+                                      <th>Potencia</th>
+                                      <th>Señas</th>
+                                      <th>Fibra</th>
+                                      <th>Antena</th>
+                                      <th>Dispositivos</th>
+                                      <th>Contraseña</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                     
+                                  </tbody>
+                              </table>
+                              <div class="alert alert-info alert-dismissible">
+                                  <button type="button" class="close" data-dismiss="alert"
+                                      aria-hidden="true">×</button>
+                                  <h5>Alert!</h5>
+                                  No hay datos ingresados.
+                              </div>
+                          </div>
+
+                  </div>
+                  <!-- /.row -->
+              </div>
+              <%} %>
+          </div>
+      </div><!-- /.container-fluid -->
+      <!-- Nuevo equipos -->
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Default Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/equipos" method="POST"> 
+                    <div class="row mb-4">
+                        <div class="col">
+                                <div class="form-group">
+                                    <label>Usuario</label>
+                                    <select class="form-control select2bs4" style="width: 100%;" name="cliente_id" id="select" onChange="imprimirValor()">
+                                      <option value="" selected disabled>-- Elige el cliente --</option>
+                                      <% usuarios.forEach(usuario =>{%>
+                                        <option value="<%= usuario.cliente_id %> "><%= usuario.nombre %></option>
+                                        <%}); %> 
+                                    
+                                    </select>
+                                  </div>
+                        </div>
+                        <div class="col">
+                                <div class="form-group">
+                                    <label>Contrato</label>
+                                    <select class="form-control select2bs4" style="width: 100%;" name="contrato_id" id="resultado">
+                                      <option value="" selected disabled>-- Elige el Contrato --</option>
+                                    </select>
+                                  </div>
+                            
+                        </div>
+                    </div>
+                
+                    <div class="col-12">
+                        <!-- Custom Tabs -->
+                       
+                          <div class="card-header d-flex p-0">
+                            <ul class="nav nav-pills  p-2">
+                              <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Fibra</a></li>
+                              <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Antena</a></li>
+                              
+                            </ul>
+                          </div><!-- /.card-header -->
+                          <div class="card-body">
+                            <div class="tab-content">
+                              <div class="tab-pane active" id="tab_1">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Fibra</label>
+                                        <select class="form-control select2bs4" style="width: 100%;" name="caja_id">
+                                          <option value="" selected disabled>-- Elige el Fibra --</option>
+                                          <% fibra.forEach(caja =>{%>
+                                            <option value="<%= caja.caja_id %> "><%= caja.nombre %></option>
+                                            <%}); %> 
+                                        
+                                        </select>
+                                      </div>
+                                </div>
+                                <label>Potencia</label>
+                                <div class="form-outline mb-4">
+                                    <input type="text" name="potencia" class="form-control" />
+                                    <label class="form-label" for="form6Example3"></label>
+                                </div>
+
+                              </div>
+                              <!-- /.tab-pane -->
+                              <div class="tab-pane " id="tab_2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Antena</label>
+                                        <select class="form-control select2bs4" style="width: 100%;" name="antena_id">
+                                          <option value="" selected disabled>-- Elige el Antena --</option>
+                                          <% antena.forEach(anten =>{%>
+                                            <option value="<%= anten.antena_id %> "><%= anten.nombre %></option>
+                                            <%}); %> 
+                                        
+                                        </select>
+                                      </div>
+                                </div>
+                                <label>Señal</label>
+                                <div class="form-outline mb-4">
+                                    <input type="text" name="señal" class="form-control" />
+                                    <label class="form-label" for="form6Example3"></label>
+                                </div>
+                              </div>
+                              <!-- /.tab-pane -->
+                              <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                          </div><!-- /.card-body -->
+                        
+                        <!-- ./card -->
+                      </div>
+
+                      <div class="row mb-4">
+                        <div class="col">
+                                <label>Contraseña</label>
+                                <div class="form-outline mb-4">
+                                    <input type="text" name="contraseña" class="form-control" />
+                                    <label class="form-label" for="form6Example3"></label>
+                                </div>
+                        </div>
+                        <div class="col">
+                            <label>Dispositivos</label>
+                            <div class="form-outline mb-4">
+                                <input type="text" name="dispositivos" class="form-control" />
+                                <label class="form-label" for="form6Example3"></label>
+                            </div>
+                    </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <input type="submit" class="btn btn-primary" value="Crear Equipo" >
+                    </div>
+
+                </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+  </section>
+  </div>
+
+  <script>
+
+    /* https://es.stackoverflow.com/questions/306450/c%C3%B3mo-recupera-el-value-de-las-li      acceder array value de li en html*/
+    /* https://www.anerbarrena.com/jquery-each-5297/ */
+
+    /* https://es.stackoverflow.com/questions/72141/obtener-el-valor-del-select-seleccionado-javascript-dom/72146 */
+
+    /* GUARDADO EQUIPO */
+
+    const array = '<%- JSON.stringify(contratos) %>'
+    const contratos = JSON.parse(array);
+
+
+      window.onload = function() {
+        imprimirValor();
+        }
+
+      function imprimirValor() {
+            const select = document.getElementById("select");
+            const options=document.getElementsByTagName("option");
+            const resultado= document.querySelector('#resultado');
+        
+            const filtrar = () =>{
+            resultado.innerHTML=`<option value="" selected disabled>-- Elige el Contrato --</option>`;
+            for (let contrato of contratos) {
+                let id = contrato.cliente_id
+                if (id == select.value) {
+                    resultado.innerHTML += `
+                    <option value="${contrato.contrato_id}" >${contrato.contrato_id}</option>
+                    `
+                }
+            }
+            if (resultado.innerHTML ==='') {
+                resultado.innerHTML += `
+                    <option value="" selected disabled>-- Elige el Contrato --</option>
+                    `
+            }
+            }
+            select.addEventListener('change', filtrar);
+
+            filtrar();
+        }
+
+        /* FIN GUARDADO EQUIPO */
+
+        /* BUSCAR EQUIPO */
+        const arrayequipos = '<%- JSON.stringify(equipos) %>'
+        const equipos = JSON.parse(arrayequipos);
+        
+        window.onload = function() {
+            imprimirValor1();
+        }
+
+        function imprimirValor1() {
+            const select1 = document.getElementById("select1");
+            const options1=document.getElementsByTagName("option");
+            const resultado1= document.querySelector('#resultado1');
+            
+            const filtrar1 = () =>{
+            resultado1.innerHTML=``;
+            for (let equipo of equipos) {
+                let id = equipo.cliente.cliente_id
+                if (id == select1.value) {
+                    if (equipo.potencia == '0') {
+                        potencia= ''
+                    }else{
+                        potencia = equipo.potencia
+                    }
+                    /*  */
+                    if (equipo.señal == '0') {
+                        señal= ''
+                    }else{
+                        señal = equipo.señal
+                    }
+                    /*  */
+                    if (equipo.caja  === null) {
+                        caja= ''
+                    }else{
+                        caja = equipo.caja.nombre 
+                    }
+                    /*  */
+                    if (equipo.antena  === null) {
+                        antena= ''
+                    }else{
+                        antena = equipo.antena.nombre
+                    }
+                    resultado1.innerHTML += `
+                              
+                    <tr>
+                                <th scope="row">
+                                    ${equipo.ont_id}
+                                </th>
+                                <td>
+                                    ${equipo.cliente.nombre}
+                                </td>
+                                <td>
+                                    ${equipo.contrato.contrato_id}
+                                </td>
+                                <td>
+                                    ${potencia}
+                                </td>
+                                <td>
+                                    ${señal}
+                                </td>
+                                <td>
+                                    ${caja}
+                                </td>
+                                <td>
+                                    ${antena}
+                                </td>
+                                <td>
+                                    ${ equipo.dispositivos}
+                                </td>
+                                <td>                                    
+                                    ${ equipo.contraseña}
+                                </td>
+                             
+                    </tr>
+                    `
+                }
+            }
+            if (resultado1.innerHTML ==='') {
+                resultado1.innerHTML += `
+                <tbody><strong>NO HAY DATOS ENCONTRADOS</strong></tbody>
+                    `
+            }
+            }
+            select1.addEventListener('change', filtrar1);
+
+            filtrar1();
+        }
+
+        /* FIN BUSCAR EQUIPO */
+
+       /*  window.onload = function() {
+        imprimirValor();
+        }
+
+        function imprimirValor(){
+        const select = document.getElementById("select");
+        const options=document.getElementsByTagName("option");
+        const resultado= document.querySelector('#resultado');
+    
+        const filtrar = () =>{
+        resultado.innerHTML='';
+
+         for (let contrato of contratos) {
+             let id = contrato
+             if (id == select.value) {
+                resultado.innerHTML += `
+                    <li> Contrato: ${contrato} </li>
+                `
+             }
+         }
+         if (resultado.innerHTML ==='') {
+            resultado.innerHTML += `
+                    <li>Producto no encontrado...</li>
+                `
+         }
+        }
+        select.addEventListener('change', filtrar);
+
+        filtrar();
+        } */
+        
+   
+
+
+      /* const formulario = document.querySelector('#formulario');
+      const boton = document.querySelector('#boton');
+      const resultado= document.querySelector('#resultado');
+
+      const filtrar = () =>{
+        resultado.innerHTML='';
+
+         const texto = formulario.value.toLowerCase();
+
+         for (let producto of productos) {
+             let nombre = producto.nombre.toLowerCase();
+             if (nombre.indexOf(texto) !== -1) {
+                resultado.innerHTML += `
+                    <li>${producto.nombre} - valor:${producto.valor} </li>
+                `
+             }
+         }
+         if (resultado.innerHTML ==='') {
+            resultado.innerHTML += `
+                    <li>Producto no encontrado...</li>
+                `
+         }
+      }
+
+      boton.addEventListener('click',filtrar);
+      formulario.addEventListener('keyup', filtrar);
+
+      filtrar(); */
+
+
+
+
+  </script>
+

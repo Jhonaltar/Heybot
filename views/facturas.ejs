@@ -1,0 +1,136 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Facturas</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3><%= facturas.length %> </h3>
+    
+                    <p>Total de Facturas</p>
+                  </div>
+                  <div class="icon">
+                    <i class="far fa-check-circle"></i>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div><!-- /.container-fluid -->
+     
+    </section>
+    <!-- /.content -->
+    
+
+    <section class="content">
+      <div class="container-fluid">
+          <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h5 class="mb-0 text-center">
+                      <strong>Tabla de Facturas </strong>
+                  </h5>
+              </div> <!-- /.card-body -->
+              <% if (facturas.length> 0) {%>
+              <div class="row table-responsive">
+                  <div class="col-12 mx-auto ">
+                      
+                      
+                      <table class="table" style="text-align: center;">
+                          
+                          <thead>
+                              <tr>
+                                  <th>Nº</th>
+                                  <th>Usuario</th>
+                                  <th>Contrato</th>
+                                  <th>Requerimiento</th>
+                                  <th>Solucionado</th>
+                                  <th>Observacion</th>
+                                  <th>Fecha de creacion</th>
+                              </tr>
+                          </thead>
+                          <% reportes.forEach(reporte=> {%>
+                          <tbody>
+                              
+                              <tr >
+                                  <th scope="row">
+                                      <%= reporte.reporte_id %>
+                                  </th>
+                                  <td>
+                                      <%= reporte.cliente.nombre %>
+                                  </td>
+                                  <td>
+                                    <%= reporte.contrato.contrato_id %>
+                                </td>
+                                <td>
+                                    <%= reporte.requerimiento %>
+                                </td>
+                                <td>
+                                    <% if (reporte.solucionado == true) { %>
+                                    <span class="badge rounded-pill bg-success">Si</span>
+                                    <% } else {%>
+                                    <span class="badge rounded-pill bg-danger">No</span>
+                                    <%} %>
+                                </td>
+                                <td>
+                                    <%= reporte.motivo %>
+                                </td>
+                                <td>
+                                    <%= reporte.fechacreacion %>
+                                </td>
+                              </tr>
+                          <% }); %>
+                          </tbody>
+                      </table>
+                      <!-- /.card -->
+                      <%} else {%>
+                          <div class="card-body table-responsive p-0">
+                              <table class="table table-hover text-nowrap">
+                                  <thead>
+                                      <tr>
+                                        <th>Nº</th>
+                                        <th>Usuario</th>
+                                        <th>Contrato</th>
+                                        <th>Requerimiento</th>
+                                        <th>Solucionado</th>
+                                        <th>Observacion</th>
+                                        <th>Fecha de creacion</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                     
+                                  </tbody>
+                              </table>
+                              <div class="alert alert-info alert-dismissible">
+                                  <button type="button" class="close" data-dismiss="alert"
+                                      aria-hidden="true">×</button>
+                                  <h5>Alert!</h5>
+                                  No hay datos ingresados.
+                              </div>
+                          </div>
+  
+                         
+                  </div>
+                  <!-- /.row -->
+
+
+              </div>
+              <%} %>
+          </div>
+      </div><!-- /.container-fluid -->
+  </section>
+
+  </div>

@@ -1,0 +1,293 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Listado de Contratos</h1>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus-circle"></i> Agregar un nuevo contrato</button>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+        <% if(locals.mensajes) { %>
+            <% const categoria=Object.keys(locals.mensajes) %>
+                <% if (categoria.length) { %>
+                    <% locals.mensajes[categoria].forEach(alerta=>{ %>
+
+                        <div class="alert alert-<%- categoria %> alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><strong>Aviso!</strong></h5>
+
+                            <p>
+                                <%= alerta %>
+                            </p>
+                        </div>
+                        <% }) %>
+                            <% } %>
+                                <% } %>
+    </section>
+        <!-- Section: Main chart -->
+          <section class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h5 class="mb-0 text-center">
+                            <strong>Tablas de Contratos </strong>
+                        </h5>
+                    </div> <!-- /.card-body -->
+                    <% if (contratos.length> 0) {%>
+                    <div class="row table-responsive">
+                        <div class="col-12 mx-auto  ">
+                            <table class="table" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nª</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Direccion</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Plan</th>
+                                        <th scope="col">acciones</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    <% contratos.forEach(contrato=> {%>
+                                    <tr >
+                                        <td>
+                                            <%= contrato.contrato_id %>
+                                        </td>
+                                        <td>
+                                            <%= contrato.cliente.nombre %>
+                                        </td>
+                                        <td>
+                                            <%= contrato.direccion %>
+                                        </td>
+                                        <td>
+                                            <% if (contrato.estado == true) { %>
+                                            <span class="badge rounded-pill bg-success">Activo</span>
+                                            <% } else {%>
+                                            <span class="badge rounded-pill bg-dark">Iniciado</span>
+                                            <%} %>
+                                        </td>
+                                        <td>
+                                            <%= contrato.plane.megas %> Mbs  
+                                        </td>
+                                        <td>
+                                            <a href="" type="button" class="btn btn-primary btn-sm" class="btn btn-default" data-toggle="modal" data-target="#modal-default1<%= contrato.contrato_id %>"><i
+                                                    class="fas fa-user-edit"></i> Editar</a>
+                                            <a href="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default2<%= contrato.contrato_id %>"><i
+                                                    class="fas fa-trash"></i> Eliminar</a>
+                                        </td>
+                                    </tr>
+                                     <!-- MODAL EDITAR-->
+                                <div class="modal fade" id="modal-default1<%= contrato.contrato_id %>">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Editar Contrato<%= contrato.cliente_id %> </h4>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/contrato/<%= contrato.contrato_id %>" method="POST"> 
+                                                <div class="row mb-4">
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Usuario</label>
+                                                                <select class="form-control select2bs4" style="width: 100%;" name="cliente_id">
+                                                                  <option value="" selected disabled>-- Elige el cliente --</option>
+                                                                  <% usuarios.forEach(usuario =>{%>
+                                                                    <option value="<%= usuario.cliente_id %>"
+                                                                        <%=(contrato.cliente_id===usuario.cliente_id) ? 'selected' : '' %>
+                                                                        ><%= usuario.nombre %> </option>
+                                                                    <%}); %> 
+                                                                
+                                                                </select>
+                                                              </div>
+                                                    </div>
+                                                    <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Plan</label>
+                                                                <select class="form-control select2bs4" style="width: 100%;"name="plan_id">
+                                                                    <option value="" selected disabled>-- Elige un plan --</option>
+                                                                    <% planes.forEach(plane =>{%>
+                                                                      <option value="<%= plane.plan_id %>"
+                                                                        <%=(contrato.plan_id===plane.plan_id) ? 'selected' : '' %>
+                                                                        ><%= plane.megas %></option>
+                                                                      <%}); %> 
+                                                                </select>
+                                                              </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                 <!-- Text input -->
+                                                 <div class="form-outline mb-4">
+                                                    <input type="text" name="direccion" value="<%= contrato.direccion %>" class="form-control" />
+                                                    <label class="form-label" for="form6Example3"></label>
+                                                </div>
+                        
+                                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                                <div class="row mb-4">
+                                                    <div class="col">
+                                                        <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                                            <option selected>Elige el estado</option>
+                                                            <option value="1"<%=contrato.estado=='1' ? 'selected' : '' %>  >Activar</option>
+                                                            <option value="0"<%=contrato.estado=='0' ? 'selected' : '' %> >Iniciado</option>
+                                                          </select>
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Cancelar</button>
+                                                    <input type="submit" class="btn btn-primary" value="Crear Contrato" >
+                                                </div>
+                        
+                                            </form>
+                                        </div>
+                                      </div>
+                                      <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                  </div>
+                                <!-- FIN MODAL EDITAR-->
+
+                                <!-- MODAL ELIMINAR -->
+                                <div class="modal fade" id="modal-default2<%= contrato.contrato_id %>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Eliminar Contrato</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/eliminar-contrato/<%= contrato.contrato_id %>"
+                                                    method="POST">
+                                                    <h5 style="text-align: center;"><strong>¿Estas seguro
+                                                            que
+                                                            deseas eliminar el contrato?</strong></h5>
+        
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default"
+                                                            data-dismiss="modal">Cancelar</button>
+                                                        <input type="submit" class="btn btn-danger"
+                                                            value="Eliminar"></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- FIN MODAL ELIMINAR -->
+                                <% }); %>
+                                </tbody>
+                            </table>
+                            <!-- /.card -->
+                            <%} else {%>
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-hover text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Nº</th>
+                                                <th>Nombre</th>
+                                                <th>Cedula</th>
+                                                <th>Telefono</th>
+                                                <th>Aciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           
+                                        </tbody>
+                                    </table>
+                                    <div class="alert alert-info alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert"
+                                            aria-hidden="true">×</button>
+                                        <h5>Alert!</h5>
+                                        No hay datos ingresados.
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <%} %>
+                </div>
+            </div><!-- /.container-fluid -->
+    
+            <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Default Modal</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/contrato" method="POST"> 
+                            <div class="row mb-4">
+                                <div class="col">
+                                        <div class="form-group">
+                                            <label>Usuario</label>
+                                            <select class="form-control select2bs4" style="width: 100%;" name="cliente_id">
+                                              <option value="" selected disabled>-- Elige el cliente --</option>
+                                              <% usuarios.forEach(usuario =>{%>
+                                                <option value="<%= usuario.cliente_id %> "><%= usuario.nombre %></option>
+                                                <%}); %> 
+                                            
+                                            </select>
+                                          </div>
+                                </div>
+                                <div class="col">
+                                        <div class="form-group">
+                                            <label>Plan</label>
+                                            <select class="form-control select2bs4" style="width: 100%;"name="plan_id">
+                                                <option value="" selected disabled>-- Elige un plan --</option>
+                                                <% planes.forEach(plane =>{%>
+                                                  <option value="<%= plane.plan_id %> "><%= plane.megas %></option>
+                                                  <%}); %> 
+                                            </select>
+                                          </div>
+                                    
+                                </div>
+                            </div>
+                             <!-- Text input -->
+                             <div class="form-outline mb-4">
+                                <input type="text" name="direccion" class="form-control" />
+                                <label class="form-label" for="form6Example3"></label>
+                            </div>
+    
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                        <option selected>Elige el estado</option>
+                                        <option value="1">Activar</option>
+                                        <option value="0">Iniciado</option>
+                                      </select>
+                                </div>
+                            </div>
+    
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                    Cancelar
+                                </button>
+                                <input type="submit" class="btn btn-primary" value="Crear Contrato" >
+                            </div>
+    
+                        </form>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+        </section>
+    </div>
+
+
+    

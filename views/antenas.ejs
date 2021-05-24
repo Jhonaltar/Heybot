@@ -1,0 +1,267 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Antenas(nodos)</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><%= antenas.length %> </h3>
+
+                <p>Total de Nodos</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-broadcast-tower"></i>
+                <!-- <i class="ion ion-bag"></i> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.row -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus-circle"></i> Agregar un nueva antena</button>
+        <br>
+        <br>
+      </div><!-- /.container-fluid -->
+      <% if(locals.mensajes) { %>
+        <% const categoria=Object.keys(locals.mensajes) %>
+            <% if (categoria.length) { %>
+                <% locals.mensajes[categoria].forEach(alerta=>{ %>
+
+                    <div class="alert alert-<%- categoria %> alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><strong>Aviso!</strong></h5>
+
+                        <p>
+                            <%= alerta %>
+                        </p>
+                    </div>
+                    <% }) %>
+                        <% } %>
+                            <% } %>
+    </section>
+    <!-- /.content -->
+    
+
+    <section class="content">
+      <div class="container-fluid">
+          <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h5 class="mb-0 text-center">
+                      <strong>Tabla de Antenas </strong>
+                  </h5>
+              </div> <!-- /.card-body -->
+              <% if (antenas.length> 0) {%>
+              <div class="row table-responsive">
+                  <div class="col-12 mx-auto ">
+                      
+                      
+                      <table class="table" style="text-align: center;">
+                          
+                          <thead>
+                              <tr>
+                                  <th>Nº</th>
+                                  <th>Nombre</th>
+                                  <th>Estado</th>
+                                  <th>Aciones</th>
+                              </tr>
+                          </thead>
+                          <% antenas.forEach(antena=> {%>
+                          <tbody>
+                              
+                              <tr >
+                                  <th scope="row">
+                                      <%= antena.antena_id %>
+                                  </th>
+                                  <td>
+                                      <%= antena.nombre %>
+                                  </td>
+                                  <td>
+                                    <% if (antena.estado == true) { %>
+                                    <span class="badge rounded-pill bg-success">Activo</span>
+                                    <% } else {%>
+                                    <span class="badge rounded-pill bg-dark">Desactivado</span>
+                                    <%} %>
+                                </td>
+                                  <td>
+                                      <button type="button" class="btn btn-primary" data-toggle="modal"
+                                          data-target="#modal-default<%= antena.antena_id %>"><i
+                                              class="fas fa-user-edit"></i> Editar</button>
+
+
+                                      <button type="button" class="btn btn-danger" data-toggle="modal"
+                                          data-target="#modal-default1<%= antena.antena_id %>"><i
+                                              class="fas fa-trash"></i> Eliminar</button>
+                                  </td>
+                              </tr>
+                               <!-- MODAL EDITAR-->
+                      <div class="modal fade" id="modal-default<%= antena.antena_id %>">
+                          <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content ">
+                                  <div class="modal-header">
+                                      <h4 class="modal-title">Default Modal</h4>
+                                      <button type="button" class="close" data-dismiss="modal"
+                                          aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <form role="form" action="/antena/<%= antena.antena_id %>"
+                                          method="POST">
+                                          <div class="card-body">
+                                            <div class="form-group">
+                                              <label for="exampleInputEmail1">Nombre address</label>
+                                              <input type="text" class="form-control" name="nombre" value="<%= antena.nombre %>">
+                                            </div>
+                                            <div class="row mb-4">
+                                              <div class="col">
+                                                  <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                                      <option selected>Elige el estado</option>
+                                                      <option value="1"<%= antena.estado=='1' ? 'selected' : '' %> >Activar</option>
+                                                      <option value="0"<%= antena.estado=='0' ? 'selected' : '' %>>Desactivar</option>
+                                                    </select>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          
+                                          <!-- /.card-body -->
+                          
+                                          <div class="card-footer">
+                                            <input type="submit" class="btn btn-primary" value="Actualizar dato">
+                                          </div>
+                                        </form>
+                                  </div>
+                              </div>
+                              <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                      </div>
+
+
+                       <!-- ELIMINAR EDITAR-->
+
+                       <div class="modal fade" id="modal-default1<%= antena.antena_id %>">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h4 class="modal-title">Default Modal</h4>
+                                      <button type="button" class="close" data-dismiss="modal"
+                                          aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <form action="/eliminar-antena/<%= antena.antena_id %>"
+                                          method="POST">
+                                          <h5 style="text-align: center;"><strong>¿Estas seguro
+                                                  que
+                                                  deseas eliminar el registro?</strong></h5>
+
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-default"
+                                                  data-dismiss="modal">Cancelar</button>
+                                              <input type="submit" class="btn btn-danger"
+                                                  value="Eliminar"></button>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                              <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                      </div>
+                          <% }); %>
+                          </tbody>
+                      </table>
+                      <!-- /.card -->
+                      <%} else {%>
+                          <div class="card-body table-responsive p-0">
+                              <table class="table table-hover text-nowrap">
+                                  <thead>
+                                      <tr>
+                                          <th>Nº</th>
+                                          <th>Nombre</th>
+                                          <th>Cedula</th>
+                                          <th>Aciones</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                     
+                                  </tbody>
+                              </table>
+                              <div class="alert alert-info alert-dismissible">
+                                  <button type="button" class="close" data-dismiss="alert"
+                                      aria-hidden="true">×</button>
+                                  <h5>Alert!</h5>
+                                  No hay datos ingresados.
+                              </div>
+                          </div>
+  
+                         
+                  </div>
+                  <!-- /.row -->
+
+
+              </div>
+              <%} %>
+          </div>
+      </div><!-- /.container-fluid -->
+
+      <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">Crear Nuevo Cliente</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <!-- Nuevo cliente -->
+                      <form role="form" action="/antena" method="POST">
+                          <div class="card-body">
+                              <div class="form-group">
+                                  <label for="exampleInputEmail1">Nombre de Antena</label>
+                                  <input type="text" class="form-control" name="nombre"
+                                      placeholder="Escriba nueva antena">
+                              </div>
+                              <div class="row mb-4">
+                                <div class="col">
+                                    <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                        <option selected>Elige el estado</option>
+                                        <option value="1">Activar</option>
+                                        <option value="0">Desactivado</option>
+                                      </select>
+                                </div>
+                            </div>
+
+                          </div>
+                          <!-- /.card-body -->
+
+                          <div class="card-footer">
+                              <input type="submit" class="btn btn-primary" value="Crear Antena">
+                          </div>
+                      </form>
+                      <!--Fin Nuevo cliente -->
+                  </div>
+              </div>
+              <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+      </div>
+  </section>
+
+  </div>

@@ -1,0 +1,47 @@
+{
+    "development": {
+        "username": "ucid7hjzypi1mw9o",
+        "password": "SmAY5VRWpaIGAFHzz4w5",
+        "database": "bnm1atfoirfx9rkykva3",
+        "host": "bnm1atfoirfx9rkykva3-mysql.services.clever-cloud.com",
+        "dialect": "mysql",
+        "dialectOptions": {
+
+            "dateStrings": true,
+            "typeCast": true,
+            "timezone": "-05:00"
+        },
+
+        "timezone": "-05:00"
+    },
+    "test": {
+        "username": "ucid7hjzypi1mw9o",
+        "password": "SmAY5VRWpaIGAFHzz4w5",
+        "database": "bnm1atfoirfx9rkykva3",
+        "host": "bnm1atfoirfx9rkykva3-mysql.services.clever-cloud.com",
+        "dialect": "mysql",
+        "dialectOptions": {
+
+            "dateStrings": true,
+            "typeCast": true,
+            "timezone": "-05:00"
+        },
+
+        "timezone": "-05:00"
+    },
+    "production": {
+        "username": "ucid7hjzypi1mw9o",
+        "password": "SmAY5VRWpaIGAFHzz4w5",
+        "database": "bnm1atfoirfx9rkykva3",
+        "host": "bnm1atfoirfx9rkykva3-mysql.services.clever-cloud.com",
+        "dialect": "mysql",
+        "dialectOptions": {
+
+            "dateStrings": true,
+            "typeCast": true,
+            "timezone": "-05:00"
+        },
+
+        "timezone": "-05:00"
+    }
+}

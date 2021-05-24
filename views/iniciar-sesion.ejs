@@ -1,0 +1,53 @@
+  <!--Main Navigation-->
+
+  <div class="login-page" style="min-height: 512.391px;">
+    <div class="login-box">
+      <div class="login-logo">
+        <a><b>Hey!</b>bot-master</a>
+      </div>
+      <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">
+          <% if(locals.mensajes) { %>
+            <% const categoria = Object.keys(locals.mensajes)  %> 
+            <% if (categoria.length) { %>
+                <% locals.mensajes[categoria].forEach(alerta =>{ %> 
+                    <div class="alert alert-<%- categoria %> text-center" role="alert" data-mdb-color="primary">
+                        <%= alerta %>
+                      </div>
+                <% }) %>
+            <% } %>
+        <% } %>
+          <form action="/iniciar-sesion" method="POST">
+            <div class="input-group mb-3">
+              <input type="correo" name="correo" class="form-control" placeholder="Email">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" name="password" class="form-control" placeholder="Password">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- /.col -->
+              <div class="col-7">
+                <input type="submit" class="btn btn-primary btn-block" value="Iniciar sesion">
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+          <p class="mb-0">
+            <!-- <a href="/crear-cuenta" class="text-center">Crear cuenta</a> -->
+          </p>
+        </div>
+        <!-- /.login-card-body -->
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_1d27c3fa-27dd-48e0-af50-6e5853350ab9",
+      "org_id": "user_a3900ccf-263c-4158-b047-6f1279913e6b",
+      "deploy_url": "https://github.com/KevXanderPC/HeyBot.git",
+      "name": "HeyBot",
+      "alias": "HeyBot"
+    }
+  ]
+}

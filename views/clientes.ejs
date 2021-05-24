@@ -1,0 +1,258 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Listado de clientes</h1>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                        <i class="fas fa-plus-circle"></i> Crear Nuevo Cliente
+                    </button>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+        <% if(locals.mensajes) { %>
+            <% const categoria=Object.keys(locals.mensajes) %>
+                <% if (categoria.length) { %>
+                    <% locals.mensajes[categoria].forEach(alerta=>{ %>
+
+                        <div class="alert alert-<%- categoria %> alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><strong>Aviso!</strong></h5>
+
+                            <p>
+                                <%= alerta %>
+                            </p>
+                        </div>
+                        <% }) %>
+                            <% } %>
+                                <% } %>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h5 class="mb-0 text-center">
+                        <strong>Tablas de clientes </strong>
+                    </h5>
+                </div> <!-- /.card-body -->
+                <% primer_array =[] %>
+                <% if (clientes.length> 0) {%>
+                <div class="row table-responsive">
+                    <div class="col-12 mx-auto ">
+                        
+                        
+                        <table class="table" style="text-align: center;">
+                            
+                            <thead>
+                                <tr>
+                                    <th>Nº</th>
+                                    <th>Nombre</th>
+                                    <th>Cedula</th>
+                                    <th>Telefono</th>
+                                    <th>Aciones</th>
+                                </tr>
+                            </thead>
+                            <% clientes.forEach(cliente=> {%>
+                            <tbody>
+                                <% primer_array.push(clientes) %>
+                                <tr >
+                                    <th scope="row">
+                                        <%= cliente.cliente_id %>
+                                    </th>
+                                    <td>
+                                        <%= cliente.nombre %>
+                                    </td>
+                                    <td>
+                                        <%= cliente.cedula %>
+                                    </td>
+                                    <td>
+                                        <%= cliente.telefono %>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#modal-default<%= cliente.cliente_id %>"><i
+                                                class="fas fa-user-edit"></i> Editar</button>
+
+
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                            data-target="#modal-default1<%= cliente.cliente_id %>"><i
+                                                class="fas fa-trash"></i> Eliminar</button>
+                                    </td>
+                                </tr>
+                                 <!-- MODAL EDITAR-->
+                        <div class="modal fade" id="modal-default<%= cliente.cliente_id %>">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content ">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Default Modal</h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" action="/cliente/<%= cliente.cliente_id %>"
+                                            method="POST">
+                                            <div class="card-body">
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">Nombre address</label>
+                                                <input type="text" class="form-control" name="nombre" value="<%= cliente.nombre %>">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">Cedula address</label>
+                                                <input type="text" class="form-control" name="cedula" value="<%= cliente.cedula %>">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="exampleInputPassword1">Telefono</label>
+                                                <input type="text" class="form-control" name="telefono" value="<%= cliente.telefono %>">
+                                              </div>
+                                            </div>
+                                            <!-- /.card-body -->
+                            
+                                            <div class="card-footer">
+                                              <input type="submit" class="btn btn-primary" value="Actualizar dato">
+                                            </div>
+                                          </form>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+
+                         <!-- ELIMINAR EDITAR-->
+
+                         <div class="modal fade" id="modal-default1<%= cliente.cliente_id %>">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Default Modal</h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/eliminar-cliente/<%= cliente.cliente_id %>"
+                                            method="POST">
+                                            <h5 style="text-align: center;"><strong>¿Estas seguro
+                                                    que
+                                                    deseas eliminar el registro?</strong></h5>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <input type="submit" class="btn btn-danger"
+                                                    value="Eliminar"></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                            <% }); %>
+                            </tbody>
+                        </table>
+                        <!-- /.card -->
+                        <%} else {%>
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Nº</th>
+                                            <th>Nombre</th>
+                                            <th>Cedula</th>
+                                            <th>Telefono</th>
+                                            <th>Aciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                    </tbody>
+                                </table>
+                                <div class="alert alert-info alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h5>Alert!</h5>
+                                    No hay datos ingresados.
+                                </div>
+                            </div>
+    
+                           
+                    </div>
+                    <!-- /.row -->
+
+
+                </div>
+                <%} %>
+            </div>
+        </div><!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crear Nuevo Cliente</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Nuevo cliente -->
+                        <form role="form" action="/cliente" method="POST">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nombre del Cliente</label>
+                                    <input type="text" class="form-control" name="nombre"
+                                        placeholder="Escriba nombres completos">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Cedula</label>
+                                    <input type="text" class="form-control" name="cedula"
+                                        placeholder="Escriba su numero de cedula">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Telefono</label>
+                                    <input type="text" class="form-control" name="telefono"
+                                        placeholder="Escriba un numero de telefono">
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <input type="submit" class="btn btn-primary" value="Crear Cliente">
+                            </div>
+                        </form>
+                        <!--Fin Nuevo cliente -->
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <!--  -->
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+        <!--  -->
+
+    </section>
+
+    
+</div>
+
