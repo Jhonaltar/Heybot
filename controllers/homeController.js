@@ -9,7 +9,7 @@ exports.home = async (req, res) =>{
     consultas = [];
     consultas.push(User.findAll({}));
     consultas.push(Contrato.findAll({}));
-    consultas.push(Tickets.findAll({ include:[{model: Contrato }]}));
+    consultas.push(Tickets.findAll({ include:[{model: User },{model: Contrato}]}));
     consultas.push(Reportes.findAll({ include:[{model: User },{model: Contrato}] }));
 
     const [usuarios, contratos,tickets,reportes] = await Promise.all(consultas);

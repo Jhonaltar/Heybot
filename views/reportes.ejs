@@ -103,7 +103,9 @@
                                     <%= reporte.motivo %>
                                 </td>
                                 <td>
-                                    <%= reporte.fechacreacion %>
+                                    <% moment.locale('es'); %>
+                                    <% const fechacreacion = reporte.fechacreacion %>
+                                    <%= moment(fechacreacion).format('DD-MM-YYYY') %>
                                 </td>
                               </tr>
                           <% }); %>

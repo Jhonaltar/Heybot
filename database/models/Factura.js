@@ -63,6 +63,7 @@ module.exports = (sequelize, DataTypes) => {
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 const Contrato = require('../models/Contrato');
+const User = require('../models/User');
 
 const Factura = db.define('facturas',{
     factura_id: {
@@ -101,6 +102,11 @@ const Factura = db.define('facturas',{
     }
 })
 
+Factura.belongsTo(User, {
+    foreignKey: {
+      name: 'cliente_id'
+    }
+  })
 Factura.belongsTo(Contrato, {
     foreignKey: {
       name: 'contrato_id'

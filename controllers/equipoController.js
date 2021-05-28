@@ -61,43 +61,10 @@ exports.nuevoEquipo=async(req, res) =>{
     }
 }
 
-exports.resultadosBusquedas= async(req, res) =>{
+/* exports.resultadosBusquedas= async(req, res) =>{
 
-    const  cliente  = req.body;
-    console.log('aaaaaaaaaaaa',cliente);
-    if (cliente !='' ) {
-        query= `where :  { 
-            cliente_id: {[Op.eq]:${cliente}}
-        }`
-    }
-    const equipos = await Equipos.findAll({ 
-        query
-    });
-
-    console.log(equipos);
-    /* if (cliente === '') {
-        query= ''
-    } else {
-        query= `where :  { 
-            cliente_id: {[Op.eq]:${cliente}}
-        }`
-    }
-
-    const equipos = await Equipos.findAll({ 
-        where:{
-            cliente_id : {[Op.eq]:cliente}
-        },
-        include: [
-            {
-                model: User, 
-                query
-            },
-        ]
-    }); */
-
-
-/* https://sequelize.org/v5/manual/models-usage.html */
-    /* const { cliente, contrato } = req.query;
+//https://sequelize.org/v5/manual/models-usage.html
+    const { cliente, contrato } = req.query;
     console.log(cliente);
     let query ;
     if (cliente === '') {
@@ -136,9 +103,9 @@ exports.resultadosBusquedas= async(req, res) =>{
                 attributes : ['nombre']
             }
         ]
-    }); */
-    /* res.render('resultado',{
+    });
+    res.render('resultado',{
         nombrePagina:'Resultado Busqueda',
         equipos
-    }) */
-}
+    })
+} */

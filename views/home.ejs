@@ -96,8 +96,8 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages">
-                    <div class="card card-primary card-outline">
+                <div class="direct-chat-messages" style="height: 400px;">
+                    <div class="card card-primary card-outline" >
                         <% if (tickets.length> 0) {%>
                         <div class="row table-responsive">
                             <div class="col-12 mx-auto ">
@@ -106,12 +106,12 @@
                                     <thead>
                                         <tr>
                                             <th>Nº</th>
+                                            <th>Cliente</th>
                                             <th>Contrato</th>
-                                            <th>Descripcion</th>
-                                            <th>Estado</th>
+                                            <th>Descripcion</th>                                          
                                             <th>Fecha de Creacion</th>
                                             <th>Fecha de Atencion</th>
-                                            
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <% tickets.forEach(ticket=> {%>
@@ -122,17 +122,13 @@
                                                 <%= ticket.ticket_id %>
                                             </th>
                                             <td>
+                                              <%= ticket.cliente.nombre %>
+                                          </td>
+                                            <td>
                                               <%= ticket.contrato.contrato_id %>
                                           </td>
                                           <td>
                                               <%= ticket.descripcion %>
-                                          </td>
-                                          <td>
-                                              <% if (ticket.estado == true) { %>
-                                              <span class="badge rounded-pill bg-success">Solucionado</span>
-                                              <% } else {%>
-                                              <span class="badge rounded-pill bg-danger">No se ha solucionado</span>
-                                              <%} %>
                                           </td>
                                           <td>
                                             <% moment.locale('es'); %>
@@ -140,10 +136,23 @@
                                             <%= moment(fechacreacion).format('DD-MM-YYYY') %>
                                           </td>
                                           <td>
-                                            <% moment.locale('es'); %>
+                                            <% if (ticket.fechaatencion === null) {%>
+                                              <span class="badge rounded-pill bg-warning">Sin fecha de atencion</span>
+                                              <%} else {%>
+                                              <% moment.locale('es'); %>
                                             <% const fechaatencion = ticket.fechaatencion %>
                                             <%= moment(fechaatencion).format('DD-MM-YYYY') %>
+                                            <%} %> 
                                           </td>
+                                          <td>
+                                            <% if (ticket.estado == true) { %>
+                                              <span class="badge rounded-pill bg-success">Solucionado</span>
+                                            <% } else if (ticket.fechaatencion === null) { %>
+                                              <span class="badge rounded-pill bg-info">Por Asignar</span>
+                                            <% } else { %>
+                                              <span class="badge rounded-pill bg-warning">Agendado</span>
+                                        <% } %>
+                                        </td>
                                         </tr>
                                     <% }); %>
                                     </tbody>
@@ -155,12 +164,12 @@
                                             <thead>
                                                 <tr>
                                                   <th>Nº</th>
+                                                  <th>Cliente</th>
                                                   <th>Contrato</th>
-                                                  <th>Descripcion</th>
-                                                  <th>Estado</th>
+                                                  <th>Descripcion</th>                                          
                                                   <th>Fecha de Creacion</th>
                                                   <th>Fecha de Atencion</th>
-                                                  
+                                                  <th>Estado</th>                                                
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -205,7 +214,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages">
+                <div class="direct-chat-messages" style="height: 400px;">
                  
                   <div class="card card-primary card-outline">
                     <% if (reportes.length> 0) {%>
@@ -253,7 +262,9 @@
                                           <%= reporte.motivo %>
                                       </td>
                                       <td>
-                                          <%= reporte.fechacreacion %>
+                                          <% moment.locale('es'); %>
+                                            <% const fechacreacion = reporte.fechacreacion %>
+                                            <%= moment(fechacreacion).format('DD-MM-YYYY') %>
                                       </td>
                                     </tr>
                                 <% }); %>

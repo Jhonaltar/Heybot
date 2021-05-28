@@ -1,6 +1,7 @@
 const Reportes = require('../database/models/Reporte');
 const Contrato = require('../database/models/Contrato');
 const User = require('../database/models/User');
+const moment = require('moment')
 
 exports.listadoReportes= async (req, res)=>{
 
@@ -15,6 +16,7 @@ exports.listadoReportes= async (req, res)=>{
         nombrePagina: 'Listado de Reportes',
         reportes,
         sol_si,
-        sol_no
+        sol_no,
+        moment
     })
 }

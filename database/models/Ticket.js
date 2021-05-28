@@ -48,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
 
 const Sequelize = require('sequelize');
 const db = require('../config/db');
+const User = require('../models/User');
 const Contrato = require('../models/Contrato');
 
 const Ticket = db.define('ticket',{
@@ -61,17 +62,23 @@ const Ticket = db.define('ticket',{
         allowNull: false
     },
     fechacreacion: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         defaultValue: Sequelize.NOW
     },
     fechaatencion: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         defaultValue: Sequelize.NOW
     },
     descripcion: {
         type: Sequelize.STRING,
     }
 });
+
+Ticket.belongsTo(User, {
+    foreignKey: {
+      name: 'cliente_id'
+    }
+  });
 
 Ticket.belongsTo(Contrato, {
     foreignKey: {

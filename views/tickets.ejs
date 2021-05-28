@@ -71,7 +71,7 @@
 
     <section class="content">
       <div class="col-sm-6">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus-circle"></i> Agregar un nuevo contrato</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus-circle"></i> Agregar un nuevo ticket</button>
     </div>
     <br>
       <div class="container-fluid">
@@ -89,11 +89,12 @@
                           <thead>
                               <tr>
                                   <th>Nº</th>
+                                  <th>Cliente</th>
                                   <th>Contrato</th>
                                   <th>Descripcion</th>
-                                  <th>Estado</th>
                                   <th>Fecha de Creacion</th>
                                   <th>Fecha de Atencion</th>
+                                  <th>Estado</th>
                                   <th>Opciones</th>
                               </tr>
                           </thead>
@@ -105,34 +106,107 @@
                                       <%= ticket.ticket_id %>
                                   </th>
                                   <td>
+                                    <%= ticket.cliente.nombre %>
+                                </td>
+                                  <td>
                                     <%= ticket.contrato.contrato_id %>
                                 </td>
                                 <td>
                                     <%= ticket.descripcion %>
                                 </td>
                                 <td>
-                                    <% if (ticket.estado == true) { %>
-                                    <span class="badge rounded-pill bg-success">Solucionado</span>
-                                    <% } else {%>
-                                    <span class="badge rounded-pill bg-danger">No se ha solucionado</span>
-                                    <%} %>
-                                </td>
-                                <td>
                                     <% moment.locale('es'); %>
                                     <% const fechacreacion = ticket.fechacreacion %>
                                     <%= moment(fechacreacion).format('DD-MM-YYYY') %>
                                 </td>
-                                <td><% moment.locale('es'); %>
+                                <td>
+                                    <% if (ticket.fechaatencion === null) {%>
+                                      <span class="badge rounded-pill bg-warning">Sin fecha de atencion</span>
+                                      <%} else {%>
+                                      <% moment.locale('es'); %>
                                     <% const fechaatencion = ticket.fechaatencion %>
                                     <%= moment(fechaatencion).format('DD-MM-YYYY') %>
+                                    <%} %> 
+                                    
                                 </td>
                                 <td>
-                                    <a href="" type="button" class="btn btn-primary btn-sm" class="btn btn-default" data-toggle="modal" data-target="#modal-default1<%= ticket.ticket_id %>"><i
-                                            class="fas fa-user-edit"></i> Editar</a>
-                                    <!-- <a href="" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default2<%= ticket.ticket_id %>"><i
-                                            class="fas fa-trash"></i> Eliminar</a> -->
+                                  <% if (ticket.estado == true) { %>
+                                      <span class="badge rounded-pill bg-success">Solucionado</span>
+                                    <% } else if (ticket.fechaatencion === null) { %>
+                                      <span class="badge rounded-pill bg-info">Por Asignar</span>
+                                    <% } else { %>
+                                      <span class="badge rounded-pill bg-warning">Agendado</span>
+                                <% } %>
+                              </td>
+                                <td>
+                                  <% if (ticket.estado == true) { %>
+                                    <span class="badge rounded-pill bg-dark">Gestionado</span>
+                                    <% } else {%>
+                                      <a href="" type="button" class="btn btn-primary btn-sm" class="btn btn-default" data-toggle="modal" data-target="#modal-default1<%= ticket.ticket_id %>"><i class="far fa-edit"></i> Editar</a>
+                                    <%} %>
+                                    
                                 </td>
                               </tr>
+                              <!-- Modal de editar //// -->
+                              <div class="modal fade" id="modal-default1<%= ticket.ticket_id %>">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Editar Ticket</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/ticket/<%= ticket.ticket_id %>" method="POST"> 
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                  <label class="form-label" for="form6Example3">Cliente:</label>
+                                                  <input type="text" class="form-control"  value="<%= ticket.cliente.nombre %>"disabled>    
+                                                </div>
+                                                <div class="col">
+                                                  <label class="form-label" for="form6Example3">Contrato:</label>
+                                                  <input type="text" class="form-control"  value="<%= ticket.contrato.contrato_id %>" disabled>    
+                                                </div>
+                                            </div>
+                                             <!-- Text input -->
+                                             <div class="form-outline mb-4">
+                                              <label class="form-label" for="form6Example3">Descripcion:</label>
+                                              <input type="text" name="descripcion" value="<%= ticket.descripcion %>" class="form-control" />
+                                            </div>                                         
+                        
+                                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                  <label class="form-label" for="form6Example3">Fecha de Atencion:</label>
+                                                  <input type="date" class="form-control" name="fechaatencion" value="<%= ticket.fechaatencion %>">
+                                                </div>
+                                                <div class="col">
+                                                  <label class="form-label" for="form6Example3">Estado:</label>
+                                                    <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                                        <option selected>Elige el estado</option>
+                                                        <option value="1"<%=ticket.estado=='1' ? 'selected' : '' %>>Solucionado (SI)</option>
+                                                        <option value="0"<%=ticket.estado=='0' ? 'selected' : '' %>>Solucionado (NO)</option>
+                                                      </select>
+                                                </div>
+                                            </div>
+                        
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                                <input type="submit" class="btn btn-primary" value="Actualizar Ticket" >
+                                            </div>
+                        
+                                        </form>
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                              <!-- ////////////// -->
+
                           <% }); %>
                           </tbody>
                       </table>
@@ -143,11 +217,12 @@
                                   <thead>
                                       <tr>
                                         <th>Nº</th>
+                                        <th>Cliente</th>
                                         <th>Contrato</th>
                                         <th>Descripcion</th>
-                                        <th>Estado</th>
                                         <th>Fecha de Creacion</th>
                                         <th>Fecha de Atencion</th>
+                                        <th>Estado</th>
                                         <th>Opciones</th>
                                       </tr>
                                   </thead>
@@ -173,58 +248,59 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Default Modal</h4>
+              <h4 class="modal-title">Crear Nuevo Ticket</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
                 <form action="/ticket" method="POST"> 
-                    <div class="row mb-4">
-                        <div class="col">
-                                <div class="form-group">
-                                    <label>Contrato:</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" name="contrato_id">
-                                      <option value="" selected disabled>-- Elige el cliente --</option>
-                                          <% contratos.forEach(contrato =>{%>
-                                            <option value="<%= contrato.contrato_id %> "><%= contrato.contrato_id %></option>
-                                            <%}); %> 
-                                    </select>
-                                  </div>
-                        </div>
+                  <div class="row mb-4">
+                    <div class="col">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="cliente_id" id="select" onChange="imprimirValor()">
+                                  <option value="" selected disabled>-- Elige el cliente --</option>
+                                  <% usuarios.forEach(usuario =>{%>
+                                    <option value="<%= usuario.cliente_id %> "><%= usuario.nombre %></option>
+                                    <%}); %> 
+                                
+                                </select>
+                              </div>
                     </div>
+                    <div class="col">
+                            <div class="form-group">
+                                <label>Contrato</label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="contrato_id" id="resultado">
+                                  <option value="" selected disabled>-- Elige el Contrato --</option>
+                                </select>
+                              </div>
+                        
+                    </div>
+                </div>
                      <!-- Text input -->
                      <div class="form-outline mb-4">
+                        <label class="form-label" for="form6Example3">Descripcion:</label>
                         <input type="text" name="descripcion" class="form-control" />
-                        <label class="form-label" for="form6Example3"></label>
                     </div>
-                    
-                    <!-- <div class="form-group">
-                      <label>:</label>
-                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" name="fecha" data-target="#reservationdate">
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div> -->
-
+                  
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="row mb-4">
                         <div class="col">
+                          <label class="form-label" for="form6Example3">Estado:</label>
                             <select class="form-select select2bs4" aria-label="Default select example" name="estado">
                                 <option selected>Elige el estado</option>
-                                <option value="1">Solucionado</option>
-                                <option value="0">No se ha solucionado</option>
+                                <option value="1">Solucionado (SI)</option>
+                                <option value="0">Solucionado (NO)</option>
                               </select>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-                            Cancelar
-                        </button>
-                        <input type="submit" class="btn btn-primary" value="Crear Contrato" >
+                      <button type="button" class="btn btn-dark" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                        <input type="submit" class="btn btn-primary" value="Crear ticket" >
                     </div>
 
                 </form>
@@ -238,3 +314,43 @@
   </section>
 
   </div>
+
+  <script>
+    /* GUARDADO EQUIPO */
+
+    const array = '<%- JSON.stringify(contratos) %>'
+    const contratos = JSON.parse(array);
+
+
+      window.onload = function() {
+        imprimirValor();
+        }
+
+      function imprimirValor() {
+            const select = document.getElementById("select");
+            const options=document.getElementsByTagName("option");
+            const resultado= document.querySelector('#resultado');
+        
+            const filtrar = () =>{
+            resultado.innerHTML=`<option value="" selected disabled>-- Elige el Contrato --</option>`;
+            for (let contrato of contratos) {
+                let id = contrato.cliente_id
+                if (id == select.value) {
+                    resultado.innerHTML += `
+                    <option value="${contrato.contrato_id}" >${contrato.contrato_id}</option>
+                    `
+                }
+            }
+            if (resultado.innerHTML ==='') {
+                resultado.innerHTML += `
+                    <option value="" selected disabled>-- Elige el Contrato --</option>
+                    `
+            }
+            }
+            select.addEventListener('change', filtrar);
+
+            filtrar();
+        }
+
+        /* FIN GUARDADO EQUIPO */
+  </script>

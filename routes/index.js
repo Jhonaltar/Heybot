@@ -101,9 +101,9 @@ module.exports = function(){
     router.post('/equipos',
     authController.usuarioAutenticado,
     equipoController.nuevoEquipo);
-    router.post('/busqueda',
+    /* router.post('/busqueda',
     authController.usuarioAutenticado,
-    equipoController.resultadosBusquedas);
+    equipoController.resultadosBusquedas); */
 
     /* Reportes */
     router.get('/reportes',
@@ -117,11 +117,17 @@ module.exports = function(){
     router.post('/ticket',
     authController.usuarioAutenticado,
     ticketsController.nuevoTicket);
+    router.post('/ticket/:ticket_id',
+    authController.usuarioAutenticado,
+    ticketsController.editarTicket);
 
     /* Facturas */
     router.get('/facturas',
     authController.usuarioAutenticado,
     facturasController.ListadoFacturas);
+    router.get('/crear-factura',
+    authController.usuarioAutenticado,
+    facturasController.formFactura);
 
 
     return router;

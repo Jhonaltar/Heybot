@@ -112,7 +112,7 @@
                           <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content ">
                                   <div class="modal-header">
-                                      <h4 class="modal-title">Default Modal</h4>
+                                      <h4 class="modal-title">Editar Antena</h4>
                                       <button type="button" class="close" data-dismiss="modal"
                                           aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
@@ -123,11 +123,12 @@
                                           method="POST">
                                           <div class="card-body">
                                             <div class="form-group">
-                                              <label for="exampleInputEmail1">Nombre address</label>
+                                                <label for="exampleInputEmail1">Nombre de Antena:</label>
                                               <input type="text" class="form-control" name="nombre" value="<%= antena.nombre %>">
                                             </div>
                                             <div class="row mb-4">
                                               <div class="col">
+                                                <label for="exampleInputEmail1">Estado:</label>
                                                   <select class="form-select select2bs4" aria-label="Default select example" name="estado">
                                                       <option selected>Elige el estado</option>
                                                       <option value="1"<%= antena.estado=='1' ? 'selected' : '' %> >Activar</option>
@@ -140,6 +141,9 @@
                                           <!-- /.card-body -->
                           
                                           <div class="card-footer">
+                                            <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                                Cancelar
+                                            </button>
                                             <input type="submit" class="btn btn-primary" value="Actualizar dato">
                                           </div>
                                         </form>
@@ -157,7 +161,7 @@
                           <div class="modal-dialog">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <h4 class="modal-title">Default Modal</h4>
+                                      <h4 class="modal-title">Eliminar Antena</h4>
                                       <button type="button" class="close" data-dismiss="modal"
                                           aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
@@ -171,8 +175,9 @@
                                                   deseas eliminar el registro?</strong></h5>
 
                                           <div class="modal-footer">
-                                              <button type="button" class="btn btn-default"
-                                                  data-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                                Cancelar
+                                            </button>
                                               <input type="submit" class="btn btn-danger"
                                                   value="Eliminar"></button>
                                           </div>
@@ -224,7 +229,7 @@
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h4 class="modal-title">Crear Nuevo Cliente</h4>
+                      <h4 class="modal-title">Crear Nuevo Antena</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -234,12 +239,13 @@
                       <form role="form" action="/antena" method="POST">
                           <div class="card-body">
                               <div class="form-group">
-                                  <label for="exampleInputEmail1">Nombre de Antena</label>
+                                  <label for="exampleInputEmail1">Nombre de Antena:</label>
                                   <input type="text" class="form-control" name="nombre"
                                       placeholder="Escriba nueva antena">
                               </div>
                               <div class="row mb-4">
                                 <div class="col">
+                                    <label for="exampleInputEmail1">Estado:</label>
                                     <select class="form-select select2bs4" aria-label="Default select example" name="estado">
                                         <option selected>Elige el estado</option>
                                         <option value="1">Activar</option>
@@ -252,6 +258,9 @@
                           <!-- /.card-body -->
 
                           <div class="card-footer">
+                            <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                Cancelar
+                            </button>
                               <input type="submit" class="btn btn-primary" value="Crear Antena">
                           </div>
                       </form>

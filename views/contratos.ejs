@@ -83,7 +83,7 @@
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h4 class="modal-title">Editar Contrato<%= contrato.cliente_id %> </h4>
+                                          <h4 class="modal-title">Editar Contrato</h4>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                           </button>
@@ -122,6 +122,7 @@
                                                 </div>
                                                  <!-- Text input -->
                                                  <div class="form-outline mb-4">
+                                                    <label class="form-label" for="form6Example3">Direccion:</label>
                                                     <input type="text" name="direccion" value="<%= contrato.direccion %>" class="form-control" />
                                                     <label class="form-label" for="form6Example3"></label>
                                                 </div>
@@ -129,6 +130,7 @@
                                                 <!-- 2 column grid layout with text inputs for the first and last names -->
                                                 <div class="row mb-4">
                                                     <div class="col">
+                                                        <label class="form-label" for="form6Example3">Estado:</label>
                                                         <select class="form-select select2bs4" aria-label="Default select example" name="estado">
                                                             <option selected>Elige el estado</option>
                                                             <option value="1"<%=contrato.estado=='1' ? 'selected' : '' %>  >Activar</option>
@@ -138,8 +140,9 @@
                                                 </div>
                         
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                                        Cancelar
+                                                    </button>
                                                     <input type="submit" class="btn btn-primary" value="Crear Contrato" >
                                                 </div>
                         
@@ -171,8 +174,9 @@
                                                             deseas eliminar el contrato?</strong></h5>
         
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                                            Cancelar
+                                                        </button>
                                                         <input type="submit" class="btn btn-danger"
                                                             value="Eliminar"></button>
                                                     </div>
@@ -222,7 +226,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">Default Modal</h4>
+                      <h4 class="modal-title">Crear Nuevo Contrato</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -257,13 +261,14 @@
                             </div>
                              <!-- Text input -->
                              <div class="form-outline mb-4">
-                                <input type="text" name="direccion" class="form-control" />
-                                <label class="form-label" for="form6Example3"></label>
+                                <label class="form-label" for="form6Example3">Direccion:</label>
+                                <input type="text" name="direccion" class="form-control" />                               
                             </div>
     
                             <!-- 2 column grid layout with text inputs for the first and last names -->
                             <div class="row mb-4">
                                 <div class="col">
+                                    <label class="form-label" for="form6Example3">Estado:</label>
                                     <select class="form-select select2bs4" aria-label="Default select example" name="estado">
                                         <option selected>Elige el estado</option>
                                         <option value="1">Activar</option>
@@ -273,7 +278,7 @@
                             </div>
     
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">
                                     Cancelar
                                 </button>
                                 <input type="submit" class="btn btn-primary" value="Crear Contrato" >
