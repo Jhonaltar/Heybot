@@ -86,6 +86,14 @@ const Equipo = db.define('equipo',{
     contraseña: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    timeequipo:{
+        type: Sequelize.TIME,
+        defaultValue: Sequelize.NOW
+    },
+    timewan:{
+        type: Sequelize.TIME,
+        defaultValue: Sequelize.NOW
     }
 });
 

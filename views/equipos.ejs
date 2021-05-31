@@ -58,7 +58,6 @@
               <div class="row table-responsive">
                   <div class="col-12 mx-auto ">
                       
-                      
                       <table class="table" style="text-align: center;">
                           
                           <thead >
@@ -72,6 +71,8 @@
                                   <th>Antena</th>
                                   <th>Dispositivos</th>
                                   <th>Contraseña</th>
+                                  <th>Tiempo Equipo</th>
+                                  <th>Tiempo Wan</th>
                               </tr>
                           </thead>
                           
@@ -94,6 +95,8 @@
                                       <th>Antena</th>
                                       <th>Dispositivos</th>
                                       <th>Contraseña</th>
+                                      <th>Tiempo Equipo</th>
+                                      <th>Tiempo Wan</th>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -255,6 +258,8 @@
 
     /* GUARDADO EQUIPO */
 
+    
+
     const array = '<%- JSON.stringify(contratos) %>'
     const contratos = JSON.parse(array);
 
@@ -304,6 +309,7 @@
             const options1=document.getElementsByTagName("option");
             const resultado1= document.querySelector('#resultado1');
             
+            
             const filtrar1 = () =>{
             resultado1.innerHTML=``;
             for (let equipo of equipos) {
@@ -332,6 +338,8 @@
                     }else{
                         antena = equipo.antena.nombre
                     }
+
+                    const tiempoE= 
                     resultado1.innerHTML += `
                               
                     <tr>
@@ -362,6 +370,13 @@
                                 <td>                                    
                                     ${ equipo.contraseña}
                                 </td>
+                                <td>                                    
+                                    ${equipo.timeequipo}
+                                </td>
+                                <td>                                    
+                                    ${equipo.timewan}
+                                </td>
+                                
                              
                     </tr>
                     `
