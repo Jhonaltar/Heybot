@@ -1,36 +1,3 @@
-/* const { Model, DataTypes } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-    class Antena extends Model {
-        static associate({ equipos }) {
-            this.hasMany(equipos, {
-                foreignKey: 'antena_id',
-                onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
-            })
-        }
-    }
-    Antena.init({
-        antena_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        nombre: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        estado: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
-        },
-    }, {
-        sequelize,
-        timestamps: false,
-        modelName: 'antenas'
-    });
-    return Antena;
-}
- */
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
@@ -42,11 +9,21 @@ const Antena = db.define('antena',{
     },
     nombre: {
         type: Sequelize.STRING,
-        allowNull: false
+         allowNull: false,
+            validate:{
+            notEmpty: {
+                msg: 'Por favor, ingrese su nombre de antena'
+            }
+        }
     },
     estado: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+         allowNull: false,
+            validate:{
+            notEmpty: {
+                msg: 'Por favor, elija un estado'
+            }
+        }
     }
 })
 

@@ -17,8 +17,9 @@ exports.nuevoFibra = async (req, res) =>{
         req.flash('success', 'Se ha registrado correctamente');
         res.redirect('/fibra') 
     } catch (error) {
-        console.log('error','datos vacios', error);
-        req.flash('danger', 'Se hubo un error, registre nuevamente');
+        const erroresSequelize = error.errors.map((err) => err.message);
+        req.flash('danger', erroresSequelize);
+        res.redirect('/fibra');
     }
 }
 
@@ -31,9 +32,15 @@ exports.editarFibra = async(req, res) =>{
     fibra.potencia= potencia
     fibra.estado= estado
 
-    await fibra.save();
-    req.flash('success', 'Se ha actualizado correctamente');
-    res.redirect('/fibra');
+    try {
+        await fibra.save();
+        req.flash('success', 'Se ha actualizado correctamente');
+        res.redirect('/fibra');
+    } catch (error) {
+        req.flash('danger', 'No puede dejar campos vacios en editar');
+        res.redirect('/fibra');
+    }
+
 
 }
 

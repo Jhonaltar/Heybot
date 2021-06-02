@@ -16,8 +16,9 @@ exports.nuevaAntena= async (req, res) =>{
         req.flash('success', 'Se ha registrado correctamente');
         res.redirect('/antenas') 
     } catch (error) {
-        console.log('error','datos vacios', error);
-        req.flash('danger', 'Se hubo un error, registre nuevamente');
+        const erroresSequelize = error.errors.map((err) => err.message);
+        req.flash('danger', erroresSequelize);
+        res.redirect('/antenas');
     }
 }
 
@@ -28,10 +29,14 @@ exports.editarAntena = async( req, res ) =>{
 
     antena.nombre = nombre
     antena.estado = estado
-
-    await antena.save();
-    req.flash('success', 'Se ha actualizado correctamente');
-    res.redirect('/antenas');
+    try {
+        await antena.save();
+        req.flash('success', 'Se ha actualizado correctamente');
+        res.redirect('/antenas');
+    } catch (error) {
+        req.flash('danger', 'No puede dejar campos vacios en editar');
+        res.redirect('/antenas');
+    }
 }
 
 exports.eliminarAntena = async(req, res) => {

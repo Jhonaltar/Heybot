@@ -39,9 +39,6 @@ module.exports = function(){
     router.get('/clientes',
     authController.usuarioAutenticado,
     clientesController.listadoClientes);
-    router.get('/clientes',
-    authController.usuarioAutenticado,
-    clientesController.listadoClientes1);
     router.post('/cliente',
     authController.usuarioAutenticado,
     clientesController.nuevoCliente);

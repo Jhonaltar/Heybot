@@ -9,11 +9,21 @@ const User = db.define('cliente',{
         },
         nombre: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            validate:{
+            notEmpty: {
+                msg: 'Por favor ingrese su nombre completo'
+            }
+        }
         },
         cedula: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            validate:{
+            notEmpty: {
+                msg: 'Agregar su numero de céluda'
+            }
+        }
         },
         telefono: Sequelize.STRING,
 })

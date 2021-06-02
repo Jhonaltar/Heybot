@@ -75,11 +75,22 @@ const Contrato = db.define('contrato',{
     },
     direccion: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+        notEmpty: {
+            msg: 'Por favor ingrese una direccion'
+        }
+    }
 
     },
     estado: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        validate:{
+        notEmpty: {
+            msg: 'Por favor elija un estado'
+        }
+    }
     }
 });
 

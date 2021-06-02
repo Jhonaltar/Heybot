@@ -53,7 +53,7 @@
               <div class="inner">
                 <h3><%= tickets.length %></h3>
 
-                <p>Total de Tickets</p>
+                <p>Total de Tickets en espera</p>
               </div>
               <div class="icon">
                 <i class="fas fa-clipboard-list"></i>
@@ -79,238 +79,413 @@
           <!-- ./col -->
         </div>
         <!-- /.row -->
+        <div class="row">
+          <section class="col-lg-6 ">
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">Clientes resgitrado hoy y finalizado</h3>
+                <div class="card-tools">
+                  <a href="#" class="btn btn-tool btn-sm">
+                    <i class="fas fa-download"></i>
+                  </a>
+                  <a href="#" class="btn btn-tool btn-sm">
+                    <i class="fas fa-bars"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Sales</th>
+                    <th>More</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      Some Product
+                    </td>
+                    <td>$13 USD</td>
+                    <td>
+                      <small class="text-success mr-1">
+                        <i class="fas fa-arrow-up"></i>
+                        12%
+                      </small>
+                      12,000 Sold
+                    </td>
+                    <td>
+                      <a href="#" class="text-muted">
+                        <i class="fas fa-search"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      Another Product
+                    </td>
+                    <td>$29 USD</td>
+                    <td>
+                      <small class="text-warning mr-1">
+                        <i class="fas fa-arrow-down"></i>
+                        0.5%
+                      </small>
+                      123,234 Sold
+                    </td>
+                    <td>
+                      <a href="#" class="text-muted">
+                        <i class="fas fa-search"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      Amazing Product
+                    </td>
+                    <td>$1,230 USD</td>
+                    <td>
+                      <small class="text-danger mr-1">
+                        <i class="fas fa-arrow-down"></i>
+                        3%
+                      </small>
+                      198 Sold
+                    </td>
+                    <td>
+                      <a href="#" class="text-muted">
+                        <i class="fas fa-search"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      Perfect Item
+                      <span class="badge bg-danger">NEW</span>
+                    </td>
+                    <td>$199 USD</td>
+                    <td>
+                      <small class="text-success mr-1">
+                        <i class="fas fa-arrow-up"></i>
+                        63%
+                      </small>
+                      87 Sold
+                    </td>
+                    <td>
+                      <a href="#" class="text-muted">
+                        <i class="fas fa-search"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+  
+          <section class="col-lg-6 ">
+            <div class="card">
+              <div class="card-header border-0">
+                <h3 class="card-title">Nodos y Fibra Caidos</h3>
+                <div class="card-tools">
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                  <p class="text-success text-xl">
+                    <i class="fas fa-broadcast-tower nav-icon"></i> Antena
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold" data-toggle="tooltip" data-placement="top" title="<% antena_si.forEach(anten=> {%>
+                      <% if (anten.estado =='1') {%>
+                        <%= anten.nombre %>,
+                        <% } %> 
+                  <% }); %>"> 
+                      
+                      <i class="ion ion-android-arrow-up text-success"></i> <%= antena_si.length %>
+                       
+                    </span>
+                    <span class="text-muted">Up</span>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold" data-toggle="tooltip" data-placement="top" title="<% antena_no.forEach(anten=> {%>
+                      <% if (anten.estado =='0') {%>
+                        <%= anten.nombre %>,
+                        <% } %> 
+                  <% }); %>">
+                      <i class="ion ion-android-arrow-down text-danger"></i> <%= antena_no.length %>
+                    </span>
+                    <span class="text-muted">Down</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                  <p class="text-warning text-xl">
+                    <i class="fas fa-sitemap nav-icon"></i> Fibra
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold" data-toggle="tooltip" data-placement="top" title="<% fibra_si.forEach(caja=> {%>
+                      <% if (caja.estado =='1') {%>
+                        <%= caja.nombre %>,
+                        <% } %> 
+                  <% }); %>"> 
+                      
+                      <i class="ion ion-android-arrow-up text-success"></i> <%= fibra_si.length %>
+                       
+                    </span>
+                    <span class="text-muted">Up</span>
+                  </p>
+                  <p class="d-flex flex-column text-right">
+                    <span class="font-weight-bold" data-toggle="tooltip" data-placement="top" title="<% fibra_no.forEach(caja=> {%>
+                      <% if (caja.estado =='0') {%>
+                        <%= caja.nombre %>,
+                        <% } %> 
+                  <% }); %>">
+                      <i class="ion ion-android-arrow-down text-danger"></i> <%= fibra_no.length %>
+                    </span>
+                    <span class="text-muted">Down</span>
+                  </p>
+                </div>
+                <!-- /.d-flex -->
+              </div>
+            </div>
+          </section>
+        </div>
+        
+        
+        
+
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-6 ">
-            <!-- DIRECT CHAT -->
-            <div class="card direct-chat direct-chat-primary">
+
+          <section class="col-lg-12 ">
+            <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Listado de Tickes</h3>
+                <h3 class="card-title"><i class="fas fa-clipboard-list"></i> Listado de Tickes por asignar o asignados</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
               </div>
+              
               <!-- /.card-header -->
-              <div class="card-body">
-                <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" style="height: 400px;">
-                    <div class="card card-primary card-outline" >
-                        <% if (tickets.length> 0) {%>
-                        <div class="row table-responsive">
-                            <div class="col-12 mx-auto ">
-                                <table class="table " style="text-align: center;">
-                                    
-                                    <thead>
-                                        <tr>
-                                            <th>Nº</th>
-                                            <th>Cliente</th>
-                                            <th>Contrato</th>
-                                            <th>Descripcion</th>                                          
-                                            <th>Fecha de Creacion</th>
-                                            <th>Fecha de Atencion</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <% tickets.forEach(ticket=> {%>
-                                    <tbody>
-                                        
-                                        <tr >
-                                            <th scope="row">
-                                                <%= ticket.ticket_id %>
-                                            </th>
-                                            <td>
-                                              <%= ticket.cliente.nombre %>
-                                          </td>
-                                            <td>
-                                              <%= ticket.contrato.contrato_id %>
-                                          </td>
-                                          <td>
-                                              <%= ticket.descripcion %>
-                                          </td>
-                                          <td>
-                                            <% moment.locale('es'); %>
-                                            <% const fechacreacion = ticket.fechacreacion %>
-                                            <%= moment(fechacreacion).format('DD-MM-YYYY') %>
-                                          </td>
-                                          <td>
-                                            <% if (ticket.fechaatencion === null) {%>
-                                              <span class="badge rounded-pill bg-warning">Sin fecha de atencion</span>
-                                              <%} else {%>
-                                              <% moment.locale('es'); %>
-                                            <% const fechaatencion = ticket.fechaatencion %>
-                                            <%= moment(fechaatencion).format('DD-MM-YYYY') %>
-                                            <%} %> 
-                                          </td>
-                                          <td>
-                                            <% if (ticket.estado == true) { %>
-                                              <span class="badge rounded-pill bg-success">Solucionado</span>
-                                            <% } else if (ticket.fechaatencion === null) { %>
-                                              <span class="badge rounded-pill bg-info">Por Asignar</span>
-                                            <% } else { %>
-                                              <span class="badge rounded-pill bg-warning">Agendado</span>
-                                        <% } %>
-                                        </td>
-                                        </tr>
-                                    <% }); %>
-                                    </tbody>
-                                </table>
-                                <!-- /.card -->
-                                <%} else {%>
-                                    <div class="card-body table-responsive p-0">
-                                        <table class="table table-hover text-nowrap">
-                                            <thead>
-                                                <tr>
-                                                  <th>Nº</th>
-                                                  <th>Cliente</th>
-                                                  <th>Contrato</th>
-                                                  <th>Descripcion</th>                                          
-                                                  <th>Fecha de Creacion</th>
-                                                  <th>Fecha de Atencion</th>
-                                                  <th>Estado</th>                                                
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                               
-                                            </tbody>
-                                        </table>
-                                        <div class="alert alert-info alert-dismissible">
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-hidden="true">×</button>
-                                            <h5>Alert!</h5>
-                                            No hay datos ingresados.
-                                        </div>
+              <!-- form start -->
+              <div class="card-body table-responsive p-0">
+                  <div class="direct-chat-messages" style="height: 400px;">
+                <% if (tickets.length> 0) {%>
+                <table class="table table-striped table-valign-middle" style="text-align: center;">
+                  <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Cliente</th>
+                        <th>Contrato</th>
+                        <th>Descripcion</th>                                          
+                        <th>Fecha de Creacion</th>
+                        <th>Fecha de Atencion</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <% tickets.forEach(ticket=> {%>
+                <tbody>
+                    
+                    <tr >
+                        <th scope="row">
+                            <%= ticket.ticket_id %>
+                        </th>
+                        <td>
+                          <%= ticket.cliente.nombre %>
+                      </td>
+                        <td>
+                          <%= ticket.contrato.contrato_id %>
+                      </td>
+                      <td>
+                          <%= ticket.descripcion %>
+                      </td>
+                      <td>
+                        <% moment.locale('es'); %>
+                        <% const fechacreacion = ticket.fechacreacion %>
+                        <%= moment(fechacreacion).format('DD-MM-YYYY') %>
+                      </td>
+                      <td>
+                        <% if (ticket.fechaatencion === null) {%>
+                          <span class="badge rounded-pill bg-warning">Sin fecha de atencion</span>
+                          <%} else {%>
+                          <% moment.locale('es'); %>
+                        <% const fechaatencion = ticket.fechaatencion %>
+                        <%= moment(fechaatencion).format('DD-MM-YYYY') %>
+                        <%} %> 
+                      </td>
+                      <td>
+                        <% if (ticket.estado == true) { %>
+                          <span class="badge rounded-pill bg-success">Solucionado</span>
+                        <% } else if (ticket.fechaatencion === null) { %>
+                          <span class="badge rounded-pill bg-info">Por Asignar</span>
+                        <% } else { %>
+                          <span class="badge rounded-pill bg-warning">Agendado</span>
+                    <% } %>
+                    </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+            <!-- /.card -->
+            <%} else {%>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                              <th>Nº</th>
+                              <th>Cliente</th>
+                              <th>Contrato</th>
+                              <th>Descripcion</th>                                          
+                              <th>Fecha de Creacion</th>
+                              <th>Fecha de Atencion</th>
+                              <th>Estado</th>                                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                    <br>
+                    <div style="width:500px; margin: 0 auto">
+                        <div class="row">
+                            <div class="col align-self-center">
+                                <div class="alert alert-primary d-flex align-items-center" role="alert">
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:" style="margin-right: 10px;"><use xlink:href="#info-fill"/>
+                                        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                          </symbol></svg>
+                                    <div>
+                                      No hay datos insertados
                                     </div>
-                            </div>
-                            <!-- /.row -->
+                                  </div>
+                            </div>                                   
                         </div>
-                        <%} %>
                     </div>
                 </div>
-                <!--/.direct-chat-messages-->
-
-                <!-- Contacts are loaded here -->
-                
-                <!-- /.direct-chat-pane -->
+                </table>
+                <%} %>
               </div>
+                  </div>
+
             </div>
-            <!--/.direct-chat -->
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-6 ">
-            <!-- DIRECT CHAT -->
-            <div class="card direct-chat direct-chat-primary">
+
+         
+
+          <section class="col-lg-12 ">
+            <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Listado de Reportes</h3>
+                <h3 class="card-title"> <i class="fas fa-file-invoice"></i> Listado de Reportes</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
               </div>
+              
               <!-- /.card-header -->
-              <div class="card-body">
-                <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" style="height: 400px;">
-                 
-                  <div class="card card-primary card-outline">
+              <!-- form start -->
+              <div class="card-body table-responsive p-0">
+                  <div class="direct-chat-messages" style="height: 400px;">
                     <% if (reportes.length> 0) {%>
-                    <div class="row table-responsive">
-                        <div class="col-12 mx-auto ">
-                            
-                            
-                            <table class="table" style="text-align: center;">
-                                
-                                <thead>
-                                    <tr>
-                                        <th>Nº</th>
-                                        <th>Usuario</th>
-                                        <th>Contrato</th>
-                                        <th>Requerimiento</th>
-                                        <th>Solucionado</th>
-                                        <th>Observacion</th>
-                                        <th>Fecha de creacion</th>
-                                    </tr>
-                                </thead>
-                                <% reportes.forEach(reporte=> {%>
-                                <tbody>
-                                    
-                                    <tr >
-                                        <th scope="row">
-                                            <%= reporte.reporte_id %>
-                                        </th>
-                                        <td>
-                                            <%= reporte.cliente.nombre %>
-                                        </td>
-                                        <td>
-                                          <%= reporte.contrato.contrato_id %>
-                                      </td>
-                                      <td>
-                                          <%= reporte.requerimiento %>
-                                      </td>
-                                      <td>
-                                          <% if (reporte.solucionado == true) { %>
-                                          <span class="badge rounded-pill bg-success">Si</span>
-                                          <% } else {%>
-                                          <span class="badge rounded-pill bg-danger">No</span>
-                                          <%} %>
-                                      </td>
-                                      <td>
-                                          <%= reporte.motivo %>
-                                      </td>
-                                      <td>
-                                          <% moment.locale('es'); %>
-                                            <% const fechacreacion = reporte.fechacreacion %>
-                                            <%= moment(fechacreacion).format('DD-MM-YYYY') %>
-                                      </td>
-                                    </tr>
-                                <% }); %>
-                                </tbody>
-                            </table>
-                            <!-- /.card -->
-                            <%} else {%>
-                                <div class="card-body table-responsive p-0">
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
-                                            <tr>
-                                              <th>Nº</th>
-                                              <th>Usuario</th>
-                                              <th>Contrato</th>
-                                              <th>Requerimiento</th>
-                                              <th>Solucionado</th>
-                                              <th>Observacion</th>
-                                              <th>Fecha de creacion</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                           
-                                        </tbody>
-                                    </table>
-                                    <div class="alert alert-info alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert"
-                                            aria-hidden="true">×</button>
-                                        <h5>Alert!</h5>
-                                        No hay datos ingresados.
-                                    </div>
+                <table class="table table-striped table-valign-middle" style="text-align: center;">
+                  <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Usuario</th>
+                        <th>Contrato</th>
+                        <th>Requerimiento</th>
+                        <th>Solucionado</th>
+                        <th>Observacion</th>
+                        <th>Fecha de creacion</th>
+                    </tr>
+                </thead>
+                <% reportes.forEach(reporte=> {%>
+                <tbody>
+                    
+                    <tr >
+                        <th scope="row">
+                            <%= reporte.reporte_id %>
+                        </th>
+                        <td>
+                            <%= reporte.cliente.nombre %>
+                        </td>
+                        <td>
+                          <%= reporte.contrato.contrato_id %>
+                      </td>
+                      <td>
+                          <%= reporte.requerimiento %>
+                      </td>
+                      <td>
+                          <% if (reporte.solucionado == true) { %>
+                          <span class="badge rounded-pill bg-success">Si</span>
+                          <% } else {%>
+                          <span class="badge rounded-pill bg-danger">No</span>
+                          <%} %>
+                      </td>
+                      <td>
+                          <%= reporte.motivo %>
+                      </td>
+                      <td>
+                          <% moment.locale('es'); %>
+                            <% const fechacreacion = reporte.fechacreacion %>
+                            <%= moment(fechacreacion).format('DD-MM-YYYY') %>
+                      </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+            <!-- /.card -->
+            <%} else {%>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                              <th>Nº</th>
+                              <th>Usuario</th>
+                              <th>Contrato</th>
+                              <th>Requerimiento</th>
+                              <th>Solucionado</th>
+                              <th>Observacion</th>
+                              <th>Fecha de creacion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                    <br>
+                <div style="width:500px; margin: 0 auto">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:" style="margin-right: 10px;"><use xlink:href="#info-fill"/>
+                                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                      </symbol></svg>
+                                <div>
+                                  No hay datos insertados
                                 </div>
-        
-                               
-                        </div>
-                        <!-- /.row -->
-      
-      
+                              </div>
+                        </div>                                   
                     </div>
-                    <%} %>
                 </div>
-
                 </div>
-                <!--/.direct-chat-messages-->
+                <%} %>
               </div>
+              </div>
+  
             </div>
-            <!--/.direct-chat -->
           </section>
           <!-- right col -->
         </div>
@@ -319,3 +494,12 @@
     </section>
     <!-- /.content -->
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+return new bootstrap.Tooltip(tooltipTriggerEl)
+});
+});
+    </script>

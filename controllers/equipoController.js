@@ -35,6 +35,7 @@ exports.listadoEquipos=async(req, res)=>{
 
 exports.nuevoEquipo=async(req, res) =>{
     const equipo = req.body;
+    console.log(equipo);
 
     if (req.body.potencia ==='') {
         equipo.potencia= 0;
@@ -50,14 +51,19 @@ exports.nuevoEquipo=async(req, res) =>{
         equipo.antena_id= 0;
     }
 
-
+    req.checkBody('cliente_id', 'Por favor, escoger un cliente' ).notEmpty();
+    req.checkBody('contrato_id', 'Por favor, escoja un contrato' ).notEmpty();
+    req.checkBody('contraseña', 'Por favor, escriba una contraseña ' ).notEmpty();
+    req.checkBody('dispositivos', 'Por favor, escriba la cantidad del dispositivos' ).notEmpty();
+    const erroresExpress = req.validationErrors();
     try {
       await Equipos.create(equipo);
       req.flash('success', 'Se ha registrado correctamente');
-    res.redirect('/')  
+        res.redirect('/equipos')  
     } catch (error) {
-        console.log('error','datos vacios', error);
-        req.flash('danger', 'Se hubo un error, registre nuevamente');
+        const errExp = erroresExpress.map(err => err.msg)
+        req.flash('danger', errExp);
+        res.redirect('/equipos')  
     }
 }
 

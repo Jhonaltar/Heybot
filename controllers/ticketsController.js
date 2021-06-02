@@ -26,22 +26,22 @@ exports.listadoTickets= async (req,res)=>{
 }
 
 exports.nuevoTicket= async(req, res)=>{
-    /* const ticket = 
-    {
-        contrato_id : req.body.contrato_id,
-        descripcion : req.body.descripcion,
-        estado : req.body.estado,
-        fechaatencion: req.body.fechaatencion.moment().add(2, 'days')
-    } */
     const ticket= req.body;
     ticket.fechaatencion=null
+
+    req.checkBody('cliente_id', 'Por favor, escoger un cliente' ).notEmpty();
+    req.checkBody('contrato_id', 'Por favor, escoja un contrato' ).notEmpty();
+    req.checkBody('descripcion', 'Por favor, escriba una descripcion ' ).notEmpty();
+    req.checkBody('estado', 'Por favor, escoja un estado' ).notEmpty();
+    const erroresExpress = req.validationErrors();
     try {
       await Tickets.create(ticket);
       req.flash('success', 'Se ha registrado correctamente');
     res.redirect('/tickets')  
     } catch (error) {
-        console.log('error','datos vacios', error);
-        req.flash('danger', 'Se hubo un error, registre nuevamente');
+        const errExp = erroresExpress.map(err => err.msg)
+        req.flash('danger', errExp);
+        res.redirect('/tickets')
     }
 }
 

@@ -23,13 +23,21 @@ exports.listadoContratos = async (req, res)=>{
 
 exports.nuevoContrato = async (req, res) =>{
     const contrato = req.body;
+
+    req.checkBody('cliente_id', 'Por favor, Escoger un cliente' ).notEmpty();
+    req.checkBody('plan_id', 'Por favor, escoja un plan' ).notEmpty();
+    req.checkBody('direccion', 'Por favor, escriba una direccion ' ).notEmpty();
+    req.checkBody('estado', 'Por favor, escoja un estado' ).notEmpty();
+
+    const erroresExpress = req.validationErrors();
     try {
       await Contrato.create(contrato);
       req.flash('success', 'Se ha registrado correctamente');
     res.redirect('/contratos')  
     } catch (error) {
-        console.log('error','datos vacios', error);
-        req.flash('danger', 'Se hubo un error, registre nuevamente');
+        const errExp = erroresExpress.map(err => err.msg)
+        req.flash('danger', errExp);
+        res.redirect('/contratos')
     }
 }
 /* JSON.stringify */
@@ -41,10 +49,14 @@ exports.editContrato = async (req, res) =>{
     contrato.estado = estado
     contrato.cliente_id = cliente_id
     contrato.plan_id = plan_id
-
-    await contrato.save();
-    req.flash('success', 'Se ha actualizado correctamente');
-    res.redirect('/contratos')
+    try {
+        await contrato.save();
+        req.flash('success', 'Se ha actualizado correctamente');
+        res.redirect('/contratos')
+    } catch (error) {
+        req.flash('danger', 'No puede dejar campos vacios en editar');
+        res.redirect('/contratos')
+    }
 }
 
 

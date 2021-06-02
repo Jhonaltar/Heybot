@@ -1,40 +1,3 @@
-/* const { Model, DataTypes } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-    class Fibra extends Model {
-        static associate({ equipos }) {
-            this.hasMany(equipos, {
-                foreignKey: 'caja_id',
-                onDelete: 'CASCADE',
-                onUpdate: 'CASCADE'
-            })
-        }
-    }
-    Fibra.init({
-        caja_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        nombre: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        potencia: {
-            type: DataTypes.DECIMAL,
-            allowNull: false
-        },
-        estado: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
-        },
-    }, {
-        sequelize,
-        timestamps: false,
-        modelName: 'cajas'
-    });
-    return Fibra;
-} */
-
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
@@ -46,15 +9,30 @@ const Fibra =db.define('caja',{
     },
     nombre: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+        notEmpty: {
+            msg: 'Por favor, ingrese su nombre completo'
+        }
+    }
     },
     potencia: {
         type: Sequelize.DECIMAL,
-        allowNull: false
+        allowNull: false,
+        validate:{
+        notEmpty: {
+            msg: 'Por favor, ingrese una potencia'
+        }
+    }
     },
     estado: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+            validate:{
+            notEmpty: {
+                msg: 'Por favor, elija un estado'
+            }
+        }
     },
 });
 
