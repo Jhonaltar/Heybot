@@ -11535,7 +11535,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 .main-footer {
   background: #ffffff;
-  border-top: 1px solid #dee2e6;
+  /* border-top: 1px solid #dee2e6; */
   color: #869099;
   padding: 1rem;
 }
@@ -20205,7 +20205,7 @@ html.maximized-card {
 .register-page {
   -ms-flex-align: center;
   align-items: center;
-  background: #e9ecef;
+  /* background: #e9ecef; */
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;

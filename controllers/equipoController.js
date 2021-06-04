@@ -3,6 +3,7 @@ const Contrato = require('../database/models/Contrato');
 const User = require('../database/models/User');
 const Antena = require('../database/models/Antena');
 const Fibra = require('../database/models/Fibra');
+const Planes = require('../database/models/Plan');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -10,7 +11,7 @@ const Op = Sequelize.Op;
 exports.listadoEquipos=async(req, res)=>{
     const consultas= [];
     consultas.push(User.findAll({}))
-    consultas.push(Contrato.findAll({where:{ estado: true}}))
+    consultas.push(Contrato.findAll({where:{ estado: true},include:[{model: Planes}]}))
     consultas.push(Antena.findAll({where:{ estado: true}}))
     consultas.push(Fibra.findAll({where:{ estado: true}}))
     consultas.push(Equipos.findAll({ 
