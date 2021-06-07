@@ -125,6 +125,9 @@ module.exports = function(){
     router.get('/crear-factura',
     authController.usuarioAutenticado,
     facturasController.formFactura);
+    router.get('/ver-factura/:factura_id',
+    authController.usuarioAutenticado,
+    facturasController.verFactura)
 
 
     return router;

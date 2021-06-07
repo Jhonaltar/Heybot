@@ -4,7 +4,9 @@ const Tickets = require('../database/models/Ticket');
 const Reportes = require('../database/models/Reporte');
 const Antenas = require('../database/models/Antena');
 const Fibras = require('../database/models/Fibra');
-const moment = require('moment')
+const moment = require('moment');
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 exports.home = async (req, res) =>{
 
@@ -12,7 +14,7 @@ exports.home = async (req, res) =>{
     consultas.push(User.findAll({}));
     consultas.push(Contrato.findAll({}));
     consultas.push(Tickets.findAll({ include:[{model: User },{model: Contrato}],where:{estado: false}}));
-    consultas.push(Reportes.findAll({ include:[{model: User },{model: Contrato}] }));
+    consultas.push(Reportes.findAll({ where: { fechacreacion: { [Op.gte]: moment(new Date()).format("YYYY-MM-DD") } },include:[{model: User },{model: Contrato}] }));
     consultas.push(Antenas.findAll({where:{estado: true}}));
     consultas.push(Antenas.findAll({where:{estado: false}}));
     consultas.push(Fibras.findAll({where:{estado: true}}));

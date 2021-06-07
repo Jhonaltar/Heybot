@@ -27,13 +27,13 @@
                         <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-file-invoice-dollar"></i> Crear Factura</h3>
                         </div>
-                        <!-- /.card-header -->
+                        
                     
                               <div class="card-body">
                                     <form action="" method="POST">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                              <!-- text input -->
+                                              
                                               <div class="form-group">
                                                 <label>Elegir clientes</label>
                                                 <select class="form-control select2bs4" style="width: 100%;" name="cliente_id" id="select" >
@@ -46,7 +46,7 @@
                                             </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <!-- text input -->
+                                                
                                                 <div class="form-group">
                                                     <label>Elegir contrato</label>
                                                     <select class="form-control select2bs4" style="width: 100%;" name="cliente_id">
@@ -75,16 +75,10 @@
                                     </form>
                                    
                                 </div>
-
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
+                    </div>                       
+                </div>                   
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
 
     <section class="content">
@@ -96,9 +90,9 @@
                             <h3 class="card-title"><i class="fas fa-file-invoice-dollar"></i> Crear Factura</h3>
                         </div>
                         <!-- /.card-header -->
-                    
+                            
                               <div class="card-body">
-                                    <form id="formCabecera">
+                                    <form id="formCabecera" action="/crear-factura" method="POST">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
@@ -144,7 +138,7 @@
                                                       </div>
                                                   </div>
                                             </div>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Direccion</label>
                                                     <div class="input-group mb-3">
@@ -155,6 +149,13 @@
                                                       </div>
                                                   </div>
                                             </div>
+
+                                            <div class="col-sm-1">
+                                                <label>Descuento:</label>
+                                                <input type="checkbox" id="chk" onChange="validarchk();" />
+                                                <input type="text" class="form-control" disabled="disabled" id="inputDescuento"  style="text-align: center;"/>
+                                            </div>
+                                            
                                           </div>
                                     </form>
                                 </div>
@@ -175,11 +176,11 @@
                                             </div>
                                             <div class="form-group col-md-2">
                                                 <label for="">P. Unitario</label>
-                                                <input type="number" class="form-control" id="inputPUnitario">
+                                                <input type="number" class="form-control" id="inputPUnitario" disabled>
                                             </div>
                                             <div class="form-group col-md-2">
                                                 <label for="">P. Total</label>
-                                                <input type="number" class="form-control" id="inputPTotal">
+                                                <input type="number" class="form-control" id="inputPTotal" disabled>
                                             </div>
                                             <div class="form-group col-md-1 mt-4" >
                                                 <button class="btn btn-primary" type="submit">
@@ -191,8 +192,8 @@
                                 <!-- //////////////////////////////// -->
 
                                 <!-- /////////////////////////////// -->
-                                    <div class="col">
-                                        <table class="table table-resposive">
+                                    <div class="table-responsive-sm">
+                                        <table class="table ">
                                             <thead>
                                                 <tr>
                                                     <th>Cantidad</th>
@@ -209,6 +210,67 @@
                                     </div>
                                 <!-- /////////////////////////////// -->
 
+                                <div class="row">
+                                    <!-- accepted payments column -->
+                                    <div class="col-6">
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-6" style="right: 20px;">
+                                      <!-- <p class="lead">Amount Due 2/22/2014</p> -->
+                                      <!-- <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody id="cuerpoTotal">
+                                                <tr>
+                                                    <th id="result" style="width:50%">Subtotal:</th>
+                                                    
+                                                  </tr>
+                                                  <tr>
+                                                    <th>Iva (12%)</th>
+                                                    <td>$10.34</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <th>Descuentos:</th>
+                                                    <td>$5.80</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <th>Total:</th>
+                                                    <td>$265.24</td>
+                                                  </tr>
+                                            </tbody>
+                                          
+                                        </table>
+                                      </div> -->
+
+                                      <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Subtotal</label>
+                                        <div class="col-sm-3">
+                                          <input type="text" class="form-control" id="inputSubtotal" style="text-align: center;" disabled>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Iva(12%)</label>
+                                        <div class="col-sm-3">
+                                          <input type="text" class="form-control" id="inputIva" style="text-align: center;" disabled>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Descuento%:</label>
+                                        <div class="col-sm-3">
+                                          <input type="text" class="form-control" id="inputDescuento1" style="text-align: center;" disabled>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Total:</label>
+                                        <div class="col-sm-3">
+                                          <input type="text" class="form-control" id="inputTotal" style="text-align: center;" disabled>
+                                        </div>
+                                      </div>
+
+
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
                                 <div class="col">
                                     <button class="btn btn-dark" id="btnGuardar">
                                         Generar Factura
@@ -221,45 +283,12 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- <section class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <form class="row" action="" method="POST">
-                        <div class="form-group col-md-2">
-                            <label for="">Cantidad: </label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="">Descripcion</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="">P. Unitario</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="">P. Total</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md">
-                            <button class="btn btn-primary">
-                                Agregar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
-    </section> -->
+    </section>
 
 </div>
 
-<script>
+<script >
 
     const formDetalle =document.getElementById("formDetalle");
     const inputCantidad =document.getElementById("inputCantidad");
@@ -269,13 +298,20 @@
     const cuerpoTabla = document.getElementById("cuerpoTabla");
     const btnGuardar = document.getElementById("btnGuardar");
 
+    const cuerpoTotal= document.getElementById("cuerpoTotal");
+    const inputSubtotal = document.getElementById("inputSubtotal");
+    const inputIva = document.getElementById("inputIva");
+    const inputTotal = document.getElementById("inputTotal");
+    const inputDescuento = document.getElementById("inputDescuento");
+    const inputDescuento1 = document.getElementById("inputDescuento1");
+
+
     const inputNombre = document.getElementById("inputNombre");
     const inputRuc = document.getElementById("inputRuc");
     const inputFecha = document.getElementById("inputFecha");
     const inputNro = document.getElementById("inputNro");
     const inputDireccion = document.getElementById("inputDireccion");
     const formCabecera = document.getElementById("formCabecera");
-
     let facturas =[];
     let arregloDetalle=[];
     let arregloProducto=[
@@ -286,18 +322,29 @@
         },{
             id:2,
         nombre:"Producto 2",
-        precio: 5.5
+        precio: 20
         },{
             id:3,
         nombre:"Producto 3",
-        precio: 89.9
+        precio: 30
         },{
             id:4,
         nombre:"Producto 4",
-        precio: 120.4
+        precio: 5
         }
     ]
     
+    function validarchk(){
+        var chk = document.getElementById('chk');
+        if(chk.checked){
+            inputDescuento.disabled = 0 ;
+
+        }else{
+            inputDescuento.value= 0 ;
+            inputDescuento.disabled='disabled';
+        }
+    }
+
      /* Llenar producto dinamicamente */
     const llenarProducto=()=>{
         arregloProducto.forEach((p)=>{
@@ -321,6 +368,17 @@
     };
     /*  */
 
+    /*  */
+    const getPrecioProductoById = (id)=>{
+        const objProdcuto = arregloProducto.find((p)=>{
+            if (p.id === +id) {
+                return p;
+            };
+        });
+        return objProdcuto.precio;
+    };
+    /*  */
+
     /* Llenar la tabla */
     const redibujarTabla = ()=>{
         cuerpoTabla.innerHTML="";
@@ -335,16 +393,93 @@
             <td>${detalle.pTotal}</td>
             `;
     let tdEliminar = document.createElement("td"); 
-
     let botonEliminar = document.createElement("button");
     botonEliminar.classList.add("btn","btn-danger");
     botonEliminar.innerText="Eliminar";
+    botonEliminar.onclick=()=>{
+        eliminarDeatalleById(detalle.descripcion);
+    };
     tdEliminar.appendChild(botonEliminar);
     fila.appendChild(tdEliminar);
     cuerpoTabla.appendChild(fila);
         })
     }
+
+   
+
+    const eliminarDeatalleById = (id)=>{
+        arregloDetalle = arregloDetalle.filter((detalle)=>{
+            if (+id !== +detalle.descripcion) {
+                return detalle;
+            }
+        });
+        RestarTotal()
+        redibujarTabla();
+    }
     /*  */
+    const RestarTotal=()=>{
+        const Subtotal = Object.values(arregloDetalle).reduce((acc,{cant , pUnit })=> acc + cant* pUnit ,0);
+        const iva = inputIva.value = Subtotal *0.12
+        const sumasubtotal = inputSubtotal.value = Subtotal
+        inputDescuento1.value= inputDescuento.value;
+        const descuentos = +inputDescuento1.value/100 ;
+        const Totalmedio =  sumasubtotal + iva;
+        if (descuentos > 0) {
+            inputTotal.value =  Totalmedio * descuentos
+            
+        }else{
+            inputTotal.value =  Totalmedio 
+            
+        }
+    }
+
+    /*  */
+    const agregarDetalle=(objDetalle)=>{
+        //buscar si el objeto detalle ya existia en el arreglo detalle, de s er asi subar las cantidades
+        const resultado = arregloDetalle.find((detalle)=>{
+            if (+objDetalle.descripcion === +detalle.descripcion) {
+                return detalle;
+            }
+        })
+        
+        if (resultado) {
+            arregloDetalle = arregloDetalle.map((detalle)=>{
+            if (+detalle.descripcion == +objDetalle.descripcion) {
+                return {
+                    cant: +detalle.cant + +objDetalle.cant,
+                    descripcion: detalle.descripcion,
+                    pTotal: (+detalle.cant + +objDetalle.cant)* +detalle.pUnit,
+                    pUnit: +detalle.pUnit,
+                    
+                }
+            }
+            return detalle;
+        })
+        SumarTotal()
+        }else {
+            arregloDetalle.push(objDetalle);
+            SumarTotal()
+        }
+        
+    }
+    /*  */ 
+    
+    const SumarTotal=()=>{
+        const Subtotal = Object.values(arregloDetalle).reduce((acc,{cant , pUnit })=> acc + cant* pUnit ,0);
+        const iva = inputIva.value = Subtotal *0.12
+        const sumasubtotal = inputSubtotal.value = Subtotal
+        inputDescuento1.value= inputDescuento.value;
+        const descuentos = +inputDescuento1.value/100 ;
+        const Totalmedio =  sumasubtotal + iva;
+        if (descuentos > 0) {
+            inputTotal.value =  Totalmedio * descuentos
+            
+        }else{
+            inputTotal.value =  Totalmedio 
+            
+        }
+        
+    }
 
     /* obtener valor del detalle */
     formDetalle.onsubmit=(e)=>{
@@ -356,9 +491,9 @@
             pUnit: inputPUnitario.value,
             pTotal: inputPTotal.value
         }
-        arregloDetalle.push(objDetalle);
-        console.log(arregloDetalle);
+        agregarDetalle(objDetalle);
         redibujarTabla();
+        formDetalle.reset();
     }
     /*  */
 
@@ -371,18 +506,72 @@
             fecha: inputFecha.value,
             nro: inputNro.value,
             ruc: inputRuc.value,
+            subtotal: inputSubtotal.value,
+            iva: inputIva.value,
+            descuento: inputDescuento1.value,
+            total:inputTotal.value,
             detalle: arregloDetalle
         }
+        
+        
+
         facturas.push(objFactura);
-        console.log(facturas);
+        //console.log(facturas);
         //limpiar campos
         formCabecera.reset();
         formDetalle.reset();
+        arregloDetalle=[];
+        redibujarTabla();
         // guardar en el localStorage
         /* localStorage.setItem("facturas",JSON.stringify(facturas)); */
 
         /* https://www.youtube.com/watch?v=uglzztniRGg  */
         //minuto : 1:02:25 me quede
+
+        const data = {inputNombre,inputFecha}
+        console.log(data);
+        const url = 'http://localhost:8000/crear-factura'
+        const response =  fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(data)
+            });
+            console.log(response);
+            let result = response;
+
     }
+
+    selectDescripcion.onchange = ()=>{
+
+        if (selectDescripcion.value === '0') {
+            formDetalle.reset();
+            return;
+        }
+
+       const precio = getPrecioProductoById(selectDescripcion.value);
+       if (precio) {
+           inputPUnitario.value= precio
+           calcularTotal();
+       }
+    }
+
+    const calcularTotal = ()=>{
+        const cantidad = +inputCantidad.value;
+        const pUnit = +inputPUnitario.value;
+        const total = cantidad* pUnit;
+        SumarTotal()
+        inputPTotal.value = total.toFixed(2);
+    }
+
+    inputCantidad.onkeyup = ()=>{
+        calcularTotal();
+    }
+    inputCantidad.onchange=()=>{
+        calcularTotal();
+    }
+   
+        
 
 </script>
