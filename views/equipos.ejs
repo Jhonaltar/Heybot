@@ -85,7 +85,7 @@
                                   <th>Contraseña</th>
                                   <th>Tiempo Equipo</th>
                                   <th>Tiempo Wan</th>
-                                  
+                                  <th>Estado</th>
                               </tr>
                           </thead>
                           
@@ -110,6 +110,7 @@
                                         <th>Contraseña</th>
                                         <th>Tiempo Equipo</th>
                                         <th>Tiempo Wan</th>
+                                        <th>Estado</th>
                                   </tr>
                                   </thead>
                                   <tbody>
@@ -238,6 +239,16 @@
                                 <label class="form-label" for="form6Example3"></label>
                             </div>
                     </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col">
+                            <label class="form-label" for="form6Example3">Estado:</label>
+                            <select class="form-select select2bs4" aria-label="Default select example" name="estado">
+                                <option value="" selected>Elige el estado</option>
+                                <option value="1">Online</option>
+                                <option value="0">Offline</option>
+                              </select>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -372,6 +383,12 @@
                     }else{
                         antena = equipo.antena.nombre
                     }
+
+                    if (equipo.estado === true) {
+                        estado = `<span class="badge rounded-pill bg-success">Online</span>`
+                    }else{
+                        estado = `<span class="badge rounded-pill bg-danger">Offline</span>`
+                    }
                 result.innerHTML += `
                 <tr>
                                 <th scope="row">
@@ -406,6 +423,9 @@
                                 </td>
                                 <td>                                    
                                     ${equipo.timewan}
+                                </td>
+                                <td>                                    
+                                    ${estado}
                                 </td>
                                 
                              

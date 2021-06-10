@@ -56,6 +56,7 @@ exports.nuevoEquipo=async(req, res) =>{
     req.checkBody('contrato_id', 'Por favor, escoja un contrato' ).notEmpty();
     req.checkBody('contraseña', 'Por favor, escriba una contraseña ' ).notEmpty();
     req.checkBody('dispositivos', 'Por favor, escriba la cantidad del dispositivos' ).notEmpty();
+    req.checkBody('estado', 'Por favor, escoja un estado' ).notEmpty();
     const erroresExpress = req.validationErrors();
     try {
       await Equipos.create(equipo);

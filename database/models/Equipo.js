@@ -1,64 +1,3 @@
-/* const { Model, DataTypes } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-    class Equipo extends Model {
-        static associate({ contratos, cajas, antenas }) {
-            this.belongsTo(contratos, {
-                    foreignKey: 'contrato_id',
-                    onDelete: 'CASCADE',
-                    onUpdate: 'CASCADE',
-                }),
-                this.belongsTo(cajas, {
-                    as: 'caja',
-                    foreignKey: 'caja_id',
-                    onDelete: 'CASCADE',
-                    onUpdate: 'CASCADE',
-                })
-            this.belongsTo(antenas, {
-                as: 'antena',
-                foreignKey: 'antena_id',
-                onDelete: 'CASCADE',
-                onUpdate: 'CASCADE',
-            })
-        }
-    }
-    Equipo.init({
-        ont_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        contrato_id: {
-            type: DataTypes.INTEGER,
-        },
-        potencia: {
-            type: DataTypes.DECIMAL,
-            allowNull: true,
-            default: null
-        },
-        caja_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-            defaut: null
-        },
-        antena_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        dispositivos: {
-            type: DataTypes.INTEGER
-        },
-        contraseña: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    }, {
-        sequelize,
-        timestamps: false,
-        modelName: 'equipos'
-    });
-    return Equipo;
-} */
-
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 const Contrato = require('../models/Contrato');
@@ -94,6 +33,15 @@ const Equipo = db.define('equipo',{
     timewan:{
         type: Sequelize.TIME,
         defaultValue: Sequelize.NOW
+    },
+    estado: {
+        type: Sequelize.BOOLEAN,
+         allowNull: false,
+            validate:{
+            notEmpty: {
+                msg: 'Por favor, elija un estado'
+            }
+        }
     }
 });
 
